@@ -1,6 +1,6 @@
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
-extra["springCloudVersion"] = "2022.0.4"
+extra["springCloudVersion"] = "2023.0.0"
 
 dependencies {
     implementation(project(":community-application"))
@@ -24,4 +24,12 @@ tasks {
         enabled = true
         mainClass.set("gloddy.CommunityApplicationKt")
     }
+}
+
+tasks.register<Test>("allTests") {
+    dependsOn(":community-application:test", ":community-domain:test", ":community-infrastructure:test", ":community-in-api:test")
+}
+
+tasks.named("build") {
+    dependsOn("allTests")
 }

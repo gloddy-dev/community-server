@@ -3,6 +3,6 @@ package gloddy.category
 import gloddy.core.CategoryId
 
 data class Category(
-    val id: CategoryId?,
-    val name: String
+    var name: String,
+    val id: CategoryId? = null,
 )

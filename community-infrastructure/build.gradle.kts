@@ -14,6 +14,16 @@ jar.enabled = true
 
 extra["springCloudVersion"] = "2023.0.0"
 
+plugins {
+    kotlin("plugin.jpa") version "1.9.20"
+}
+
+allOpen {
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.Embeddable")
+    annotation("jakarta.persistence.MappedSuperclass")
+}
+
 dependencies {
     implementation(project(":community-application"))
     implementation(project(":community-domain"))

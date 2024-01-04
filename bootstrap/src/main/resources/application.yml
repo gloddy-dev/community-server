@@ -4,4 +4,4 @@ server:
 spring:
   config:
     import:
-      - application-jpa.yml
+      - application-persistence.yml

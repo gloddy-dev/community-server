@@ -11,11 +11,10 @@ data class Article(
     var title: String,
     var content: String,
     var image: ArticleImage,
+    var commentCount: Int = 0,
+    var likeCount: Int = 0,
     val id: ArticleId? = null,
 ) {
-    var commentCount: Int = 0
-    var likeCount: Int = 0
-
     constructor(
         userId: UserId,
         category: Category,

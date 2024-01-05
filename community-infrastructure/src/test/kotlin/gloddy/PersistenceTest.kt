@@ -31,6 +31,10 @@ abstract class PersistenceTest {
             }
         )
         CATEGORY = categories.map { it.toDomain() }
+        flushAndClear()
+    }
+
+    protected fun flushAndClear() {
         em.flush()
         em.clear()
     }

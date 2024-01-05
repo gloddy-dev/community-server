@@ -2,6 +2,7 @@ package gloddy
 
 import gloddy.category.Category
 import gloddy.persistence.article.repository.ArticleJpaRepository
+import gloddy.persistence.article.repository.ArticleLikeJpaRepository
 import gloddy.persistence.category.repository.CategoryJpaRepository
 import gloddy.persistence.util.mapper.toDomain
 import gloddy.persistence.util.mapper.toEntity
@@ -20,6 +21,8 @@ abstract class PersistenceTest {
     protected lateinit var categoryJpaRepository: CategoryJpaRepository
     @Autowired
     protected lateinit var articleJpaRepository: ArticleJpaRepository
+    @Autowired
+    protected lateinit var articleLikeJpaRepository: ArticleLikeJpaRepository
     @Autowired
     protected lateinit var em: EntityManager
 

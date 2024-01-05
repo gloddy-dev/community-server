@@ -7,4 +7,5 @@ import gloddy.core.UserId
 interface ArticleCommandUseCase {
     fun create(command: ArticleCreateCommand): ArticleIdResponse
     fun delete(userId: Long, articleId: Long)
+    fun like(userId: Long, articleId: Long)
 }

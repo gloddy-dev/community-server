@@ -5,6 +5,7 @@ import gloddy.article.dto.command.ArticleCreateCommand
 import gloddy.article.dto.response.ArticleIdResponse
 import gloddy.article.port.`in`.ArticleCommandUseCase
 import gloddy.article.port.out.ArticleCommandPersistencePort
+import gloddy.article.port.out.ArticleQueryPersistencePort
 import gloddy.category.port.out.CategoryQueryPersistencePort
 import gloddy.core.ArticleId
 import gloddy.core.UserId
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service
 @Service
 class ArticleCommandService(
     private val categoryQueryPersistencePort: CategoryQueryPersistencePort,
+    private val articleQueryPersistencePort: ArticleQueryPersistencePort,
     private val articleCommandPersistencePort: ArticleCommandPersistencePort,
 ) : ArticleCommandUseCase {
 
@@ -28,5 +30,11 @@ class ArticleCommandService(
             images = command.images,
         ).let { articleCommandPersistencePort.save(it) }
         return ArticleIdResponse(articleId = article.id!!)
+    }
+
+    override fun delete(userId: Long, articleId: Long) {
+        val article = articleQueryPersistencePort.findById(articleId)
+        article.validateAuthorization(userId)
+        articleCommandPersistencePort.delete(article.id!!.value)
     }
 }

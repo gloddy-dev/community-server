@@ -2,11 +2,8 @@ package gloddy.article
 
 import gloddy.article.exception.ArticleImageSizeOverException
 import gloddy.article.vo.ArticleImage
-import gloddy.category.Category
-import gloddy.core.CategoryId
 import gloddy.core.UserId
-import gloddy.fixture.CategoryFixture
-import gloddy.fixture.CategoryFixture.*
+import gloddy.CategoryFixture.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -37,7 +34,7 @@ class ArticleCreateTest {
             category = category,
             title = "title",
             content = "content",
-            imageList = image
+            images = image
         )
 
         assertEquals(article.category, category)
@@ -55,7 +52,7 @@ class ArticleCreateTest {
                 category = K_POP.toPersistDomain(1L),
                 title = "title",
                 content = "content",
-                imageList = listOf("image1", "image2", "image3", "image4")
+                images = listOf("image1", "image2", "image3", "image4")
             )
         }
     }

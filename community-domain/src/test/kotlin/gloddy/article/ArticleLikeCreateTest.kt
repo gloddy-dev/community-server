@@ -1,7 +1,7 @@
 package gloddy.article
 
 import gloddy.core.UserId
-import gloddy.fixture.ArticleFixture.*
+import gloddy.ArticleFixture.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

@@ -1,4 +1,4 @@
-package gloddy.fixture
+package gloddy
 
 import gloddy.category.Category
 import gloddy.core.CategoryId

@@ -1,11 +1,11 @@
-package gloddy.fixture
+package gloddy
 
 import gloddy.article.Article
 import gloddy.article.vo.ArticleImage
 import gloddy.category.Category
 import gloddy.core.ArticleId
 import gloddy.core.UserId
-import gloddy.fixture.CategoryFixture.*
+import gloddy.CategoryFixture.*
 
 enum class ArticleFixture(
     private val userId: UserId?,
@@ -14,21 +14,21 @@ enum class ArticleFixture(
     private val content: String,
     private val image: ArticleImage,
 ) {
-    JIHWAN(null, QNA.toPersistDomain(1L), "한국 핫플", "요즘 한국 핫플이 어디에용?", ArticleImage(null));
+    JIHWAN(null, QNA.toPersistDomain(2L), "한국 핫플", "요즘 한국 핫플이 어디에용?", ArticleImage(null));
 
-    fun toDomain(userId: Long): Article =
+    fun toDomain(userId: Long, category: Category? = null): Article =
         Article(
             userId = UserId(userId),
-            category = this.category!!,
+            category = category ?: this.category!!,
             title = this.title,
             content = this.content,
             image = this.image
         )
 
-    fun toPersistDomain(userId: Long, id: Long): Article =
+    fun toPersistDomain(userId: Long, id: Long, category: Category? = null): Article =
         Article(
             userId = UserId(userId),
-            category = this.category!!,
+            category = category ?: this.category!!,
             title = this.title,
             content = this.content,
             image = this.image,

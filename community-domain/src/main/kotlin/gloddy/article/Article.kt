@@ -20,14 +20,14 @@ data class Article(
         category: Category,
         title: String,
         content: String,
-        imageList: List<String>?,
+        images: List<String>?,
         id: ArticleId? = null
     ) : this(
         userId = userId,
         category = category,
         title = title,
         content = content,
-        image = ArticleImage(imageList),
+        image = ArticleImage(images),
         id = id
     )
 }

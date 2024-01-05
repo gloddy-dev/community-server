@@ -4,4 +4,5 @@ import gloddy.article.Article
 
 interface ArticleCommandPersistencePort {
     fun save(article: Article) : Article
+    fun delete(id: Long)
 }

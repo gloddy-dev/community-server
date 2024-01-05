@@ -1,5 +1,6 @@
 package gloddy.persistence.article
 
+import gloddy.persistence.common.BaseTimeEntity
 import jakarta.persistence.*
 
 @Entity
@@ -12,5 +13,5 @@ class ArticleLikeJpaEntity(
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
-) {
+) : BaseTimeEntity() {
 }

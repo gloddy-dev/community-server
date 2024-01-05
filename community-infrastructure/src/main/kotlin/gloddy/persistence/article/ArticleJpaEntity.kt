@@ -1,6 +1,7 @@
 package gloddy.persistence.article
 
 import gloddy.persistence.category.CategoryJpaEntity
+import gloddy.persistence.common.BaseTimeEntity
 import gloddy.persistence.util.converter.StringArrayConverter
 import jakarta.persistence.*
 import org.hibernate.annotations.SQLRestriction
@@ -34,5 +35,8 @@ class ArticleJpaEntity(
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-) {
+) : BaseTimeEntity() {
+    fun changeDeletedToTrue() {
+        this.deleted = true
+    }
 }

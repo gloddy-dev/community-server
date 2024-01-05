@@ -13,4 +13,5 @@ dependencies {
     implementation("org.springframework:spring-context")
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.15.2")
     implementation("jakarta.validation:jakarta.validation-api")
+    testImplementation(testFixtures(project(":community-domain")))
 }

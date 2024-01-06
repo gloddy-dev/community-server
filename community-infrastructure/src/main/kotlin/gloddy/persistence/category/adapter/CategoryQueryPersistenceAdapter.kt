@@ -17,4 +17,9 @@ class CategoryQueryPersistenceAdapter(
     override fun findById(id: CategoryId): Category {
         return (categoryJpaRepository.findByIdOrNull(id.value) ?: throw CategoryNotFoundException()).toDomain()
     }
+
+    override fun findAll(): List<Category> {
+        return categoryJpaRepository.findAll()
+            .map { it.toDomain() }
+    }
 }

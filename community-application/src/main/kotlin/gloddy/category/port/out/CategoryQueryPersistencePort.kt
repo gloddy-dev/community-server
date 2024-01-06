@@ -5,4 +5,5 @@ import gloddy.core.CategoryId
 
 interface CategoryQueryPersistencePort {
     fun findById(id: CategoryId): Category
+    fun findAll(): List<Category>
 }

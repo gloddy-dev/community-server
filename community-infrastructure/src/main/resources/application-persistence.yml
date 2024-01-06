@@ -13,6 +13,6 @@ spring:
     show-sql: ${SHOW_SQL}
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
         default_batch_fetch_size: 50
         format_sql: true

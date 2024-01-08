@@ -3,7 +3,7 @@ package gloddy.controller.article
 import gloddy.article.dto.command.ArticleCreateCommand
 import gloddy.article.dto.read.ArticleIdReadData
 import gloddy.article.port.`in`.ArticleCommandUseCase
-import gloddy.response.ApiResponse
+import gloddy.response.CommunityApiResponse
 import gloddy.response.ApiResponseEntityWrapper
 import gloddy.response.created
 import org.springframework.http.ResponseEntity
@@ -16,14 +16,15 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/communities")
 class ArticleCommandController(
-    private val articleCommandUseCase: ArticleCommandUseCase
-) {
+    private val articleCommandUseCase: ArticleCommandUseCase,
+) : ArticleCommandControllerDocs {
+
 
     @PostMapping("/articles/create")
-    fun create(
+    override fun create(
         @RequestHeader("USER_ID") userId: Long,
         @RequestBody command: ArticleCreateCommand,
-    ): ResponseEntity<ApiResponse<ArticleIdReadData>> {
+    ): ResponseEntity<CommunityApiResponse<ArticleIdReadData>> {
         val data = articleCommandUseCase.create(userId, command)
         return ApiResponseEntityWrapper(data).created()
     }

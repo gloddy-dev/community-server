@@ -2,7 +2,7 @@ package gloddy.controller.category
 
 import gloddy.category.port.dto.CategoryReadData
 import gloddy.category.port.`in`.CategoryQueryUseCase
-import gloddy.response.ApiResponse
+import gloddy.response.CommunityApiResponse
 import gloddy.response.ApiResponseEntityWrapper
 import gloddy.response.ok
 import org.springframework.http.ResponseEntity
@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/communities")
 class CategoryQueryController(
-    private val categoryQueryUseCase: CategoryQueryUseCase
-) {
+    private val categoryQueryUseCase: CategoryQueryUseCase,
+) : CategoryQueryControllerDocs {
+
 
     @GetMapping("/categories")
-    fun getAll(@RequestHeader("USER_ID") userId: Long): ResponseEntity<ApiResponse<List<CategoryReadData>>> {
+    override fun getAll(@RequestHeader("USER_ID") userId: Long): ResponseEntity<CommunityApiResponse<List<CategoryReadData>>> {
         val data = categoryQueryUseCase.getAll()
         return ApiResponseEntityWrapper(data).ok()
     }

@@ -1,6 +1,6 @@
 package gloddy.response
 
-data class ApiResponse<T>(
+data class CommunityApiResponse<T>(
     val meta: Meta,
     val data: T?
 ) {

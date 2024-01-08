@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${COMMUNITY_DATASOURCE_USERNAME}
+    password: ${COMMUNITY_DATASOURCE_PASSWORD}
+    url: ${COMMUNITY_DATASOURCE_URL}
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    show-sql: ${SHOW_SQL}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        default_batch_fetch_size: 50
+        format_sql: true

@@ -1,5 +1,9 @@
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
+plugins {
+    kotlin("plugin.jpa") version "1.9.22"
+}
+
 val jar: Jar by tasks
 val bootJar: BootJar by tasks
 
@@ -16,6 +20,7 @@ dependencies {
     runtimeOnly("com.h2database:h2")
     runtimeOnly("com.mysql:mysql-connector-j")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    testImplementation(testFixtures(project(":community-domain")))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
@@ -24,3 +29,10 @@ dependencyManagement {
         mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
     }
 }
+
+allOpen {
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.Embeddable")
+    annotation("jakarta.persistence.MappedSuperclass")
+}
+

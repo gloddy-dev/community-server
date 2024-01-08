@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 
 class ApiResponseEntityWrapper<T>(
-    val data: T?
+    val data: T? = null
 ) {
     fun getResponseEntity(statusCode: Int, message: String? = null): ResponseEntity<CommunityApiResponse<T>> =
         ResponseEntity.status(statusCode)

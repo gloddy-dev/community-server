@@ -1,7 +1,11 @@
 package gloddy.core
 
-interface ErrorCode {
-    val statusCode: Int
-    val errorCode: String
-    val message: String
+enum class ErrorCode {
+
+    // Comment
+    COMMENT_NOT_FOUND,
+    COMMENT_NOT_AUTHORIZATION,
+
+    // CommentLike
+    COMMENT_LIKE_NOT_FOUND,
 }

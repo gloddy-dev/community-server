@@ -4,13 +4,13 @@ import gloddy.comment.ArticleId
 import gloddy.comment.CommentId
 import gloddy.user.UserId
 
-data class ParentCommentCreateDto(
+data class ParentCommentCreateRequest(
     val userId: UserId,
     val articleId: ArticleId,
     val content: String
 )
 
-data class ChildCommentCreateDto(
+data class ChildCommentCreateRequest(
     val userId: UserId,
     val articleId: ArticleId,
     val parentCommentId: CommentId,

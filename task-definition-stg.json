@@ -1,11 +1,11 @@
 {
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:750773866215:task-definition/community-stg:1",
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:750773866215:task-definition/community-stg:3",
   "containerDefinitions": [
     {
       "name": "springboot",
       "image": "750773866215.dkr.ecr.ap-northeast-2.amazonaws.com/community-stg:latest",
       "cpu": 389,
-      "memory": 768,
+      "memory": 614,
       "portMappings": [
         {
           "name": "springboot-8080-tcp",
@@ -41,7 +41,7 @@
       "name": "community-datadog-agent-stg",
       "image": "public.ecr.aws/datadog/agent:latest",
       "cpu": 102,
-      "memory": 205,
+      "memory": 102,
       "portMappings": [],
       "essential": false,
       "environment": [
@@ -79,9 +79,10 @@
     }
   ],
   "family": "community-stg",
+  "taskRoleArn": "arn:aws:iam::750773866215:role/ec2-role-for-ec2",
   "executionRoleArn": "arn:aws:iam::750773866215:role/ecsTaskExecutionRole",
   "networkMode": "awsvpc",
-  "revision": 1,
+  "revision": 3,
   "volumes": [],
   "status": "ACTIVE",
   "requiresAttributes": [
@@ -101,6 +102,9 @@
       "name": "ecs.capability.env-files.s3"
     },
     {
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
       "name": "ecs.capability.execution-role-ecr-pull"
     },
     {
@@ -115,19 +119,18 @@
   ],
   "placementConstraints": [],
   "compatibilities": [
-    "EC2",
-    "FARGATE"
+    "EC2"
   ],
   "requiresCompatibilities": [
     "EC2"
   ],
   "cpu": "512",
-  "memory": "1024",
+  "memory": "819",
   "runtimePlatform": {
     "cpuArchitecture": "X86_64",
     "operatingSystemFamily": "LINUX"
   },
-  "registeredAt": "2024-01-09T09:31:39.064Z",
+  "registeredAt": "2024-01-10T10:22:08.410Z",
   "registeredBy": "arn:aws:iam::750773866215:root",
   "tags": []
 }

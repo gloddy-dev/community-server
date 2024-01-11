@@ -1,5 +1,7 @@
 package gloddy.comment
 
+import gloddy.article.Article
+import gloddy.user.UserId
 import java.time.LocalDateTime
 
 @JvmInline
@@ -10,7 +12,7 @@ value class CommentId(val value: Long)
 
 data class Comment(
     val id: CommentId? = CommentId(0L),
-    val user: User,
+    val userId: UserId,
     val article: Article,
     val likeCount: Long,
     val content: String,
@@ -24,13 +26,13 @@ data class Comment(
     }
 
     constructor(
-        user: User,
+        userId: UserId,
         article: Article,
         content: String,
         depth: Int,
         ref: Int
     ): this(
-        user = user,
+        userId = userId,
         article = article,
         likeCount = 0L,
         content = content,
@@ -39,7 +41,7 @@ data class Comment(
         createdAt = LocalDateTime.now()
     )
 
-    fun isWriter(user: User): Boolean {
-        return this.user == user
+    fun isWriter(currentUserId: UserId): Boolean {
+        return this.userId == currentUserId
     }
 }

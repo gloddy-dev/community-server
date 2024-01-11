@@ -1,4 +1,4 @@
-package gloddy.like
+package gloddy.comment
 
 import gloddy.core.ErrorCode
 import gloddy.core.GloddyCommunityException

@@ -1,6 +1,6 @@
-package gloddy.rdb.comment
+package gloddy.persistence.comment
 
-import gloddy.rdb.common.entity.BaseTimeEntity
+import gloddy.persistence.common.BaseTimeEntity
 import jakarta.persistence.*
 
 @Entity

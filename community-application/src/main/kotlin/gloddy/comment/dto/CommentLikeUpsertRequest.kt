@@ -1,4 +1,4 @@
-package gloddy.like.dto
+package gloddy.comment.dto
 
 import gloddy.comment.CommentId
 import gloddy.user.UserId

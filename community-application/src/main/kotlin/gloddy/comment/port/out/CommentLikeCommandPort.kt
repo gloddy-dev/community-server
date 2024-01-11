@@ -1,8 +1,8 @@
-package gloddy.like.port.out
+package gloddy.comment.port.out
 
-import gloddy.like.CommentLike
+import gloddy.comment.CommentLike
 
 interface CommentLikeCommandPort {
-    fun create(commentLike: CommentLike): CommentLike
+    fun save(commentLike: CommentLike): CommentLike
     fun delete(commentLike: CommentLike)
 }

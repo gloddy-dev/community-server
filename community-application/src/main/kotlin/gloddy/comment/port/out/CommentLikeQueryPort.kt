@@ -1,9 +1,9 @@
-package gloddy.like.port.out
+package gloddy.comment.port.out
 
 import gloddy.comment.CommentId
-import gloddy.like.CommentLike
+import gloddy.comment.CommentLike
 import gloddy.user.UserId
 
 interface CommentLikeQueryPort {
-    fun findByCommentIdAndUserId(commentId: CommentId, userId: UserId): CommentLike
+    fun findByCommentIdAndUserId(commentId: CommentId, userId: UserId): CommentLike?
 }

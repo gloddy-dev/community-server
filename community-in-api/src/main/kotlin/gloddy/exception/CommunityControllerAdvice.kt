@@ -1,5 +1,6 @@
 package gloddy.exception
 
+import gloddy.core.GloddyCommunityBaseException
 import gloddy.core.GloddyCommunityException
 import gloddy.response.ApiResponseEntityWrapper
 import gloddy.response.CommunityApiResponse
@@ -19,7 +20,7 @@ class CommunityControllerAdvice {
     }
 
     @ExceptionHandler(GloddyCommunityException::class)
-    fun handleGloddyCummunityException(e: GloddyCommunityException): ResponseEntity<CommunityApiResponse<Nothing>> {
+    fun handleGloddyCummunityException(e: GloddyCommunityBaseException): ResponseEntity<CommunityApiResponse<Nothing>> {
         logger.error("Community Error\n{}", e.message, e)
         return ApiResponseEntityWrapper<Nothing>().fail(e.statusCode, e.message)
     }

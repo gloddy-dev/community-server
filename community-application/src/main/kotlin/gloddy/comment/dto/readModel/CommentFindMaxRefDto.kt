@@ -1,5 +1,5 @@
 package gloddy.comment.dto.readModel
 
-data class CommentRefDto(
+data class CommentFindMaxRefDto(
     val maxRef: Int
 )

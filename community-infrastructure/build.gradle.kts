@@ -14,16 +14,6 @@ jar.enabled = true
 
 extra["springCloudVersion"] = "2023.0.0"
 
-plugins {
-    kotlin("plugin.jpa") version "1.9.22"
-}
-
-//allOpen {
-//    annotation("jakarta.persistence.Entity")
-//    annotation("jakarta.persistence.Embeddable")
-//    annotation("jakarta.persistence.MappedSuperclass")
-//}
-
 dependencies {
     implementation(project(":community-application"))
     implementation(project(":community-domain"))
@@ -39,6 +29,13 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     testImplementation(testFixtures(project(":community-domain")))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    // querydsl
+    implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+    kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
+    annotationProcessor("jakarta.annotation:jakarta.annotation-api")
+    annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
 }
 
 dependencyManagement {
@@ -49,8 +46,8 @@ dependencyManagement {
 
 allOpen {
     annotation("jakarta.persistence.Entity")
-    annotation("jakarta.persistence.Embeddable")
     annotation("jakarta.persistence.MappedSuperclass")
+    annotation("jakarta.persistence.Embeddable")
 }
 
 idea {
@@ -60,4 +57,3 @@ idea {
         generatedSourceDirs.add(kaptMain)
     }
 }
-

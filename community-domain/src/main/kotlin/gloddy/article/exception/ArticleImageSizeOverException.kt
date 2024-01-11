@@ -1,6 +1,6 @@
 package gloddy.article.exception
 
 import gloddy.article.ArticleErrorCode
-import gloddy.core.GloddyCommunityException
+import gloddy.core.GloddyCommunityBaseException
 
-class ArticleImageSizeOverException : GloddyCommunityException(ArticleErrorCode.IMAGE_SIZE_OVER)
+class ArticleImageSizeOverException : GloddyCommunityBaseException(ArticleErrorCode.IMAGE_SIZE_OVER)

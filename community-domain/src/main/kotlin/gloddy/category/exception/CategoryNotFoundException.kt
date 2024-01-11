@@ -1,6 +1,6 @@
 package gloddy.category.exception
 
 import gloddy.category.CategoryErrorCode
-import gloddy.core.GloddyCommunityException
+import gloddy.core.GloddyCommunityBaseException
 
-class CategoryNotFoundException : GloddyCommunityException(CategoryErrorCode.NOT_FOUND)
+class CategoryNotFoundException : GloddyCommunityBaseException(CategoryErrorCode.NOT_FOUND)

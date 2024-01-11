@@ -1,6 +1,6 @@
 package gloddy.article.exception
 
 import gloddy.article.ArticleErrorCode
-import gloddy.core.GloddyCommunityException
+import gloddy.core.GloddyCommunityBaseException
 
-class ArticleNoAuthorizationException : GloddyCommunityException(ArticleErrorCode.NO_AUTHORIZATION)
+class ArticleNoAuthorizationException : GloddyCommunityBaseException(ArticleErrorCode.NO_AUTHORIZATION)

@@ -16,7 +16,6 @@ class ArticleCommandController(
     private val articleCommandUseCase: ArticleCommandUseCase,
 ) : ArticleCommandControllerDocs {
 
-
     @PostMapping("/articles/create")
     override fun create(
         @RequestHeader("USER_ID") userId: Long,

@@ -1,38 +1,59 @@
 package gloddy.comment.service
 
-import gloddy.comment.Comment
+import gloddy.comment.CommentId
 import gloddy.comment.port.out.CommentCommandPort
 import gloddy.comment.port.out.CommentQueryPort
-import gloddy.like.CommentLike
-import gloddy.comment.dto.CommentLikeCreateRequest
+import gloddy.comment.CommentLike
+import gloddy.comment.dto.CommentLikeUpsertRequest
 import gloddy.comment.port.out.CommentLikeCommandPort
-import gloddy.user.port.out.UserQueryPort
+import gloddy.comment.port.out.CommentLikeQueryPort
+import gloddy.user.UserId
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class CommentLikeCreateService(
+class CommentLikeUpsertService(
     private val commentLikeCommandPort: CommentLikeCommandPort,
+    private val commentLikeQueryPort: CommentLikeQueryPort,
     private val commentQueryPort: CommentQueryPort,
     private val commentCommandPort: CommentCommandPort,
 ) {
 
     @Transactional
-    fun create(dto: CommentLikeCreateRequest) {
-        val comment = commentQueryPort.findById(dto.commentId)
-
-        CommentLike(
-            userId = dto.userId,
-            comment = comment
+    fun upsert(dto: CommentLikeUpsertRequest) {
+        commentLikeQueryPort.findByCommentIdAndUserId(
+            commentId = dto.commentId,
+            userId = dto.userId
         )
-        .also { increaseLikeCount(comment) }
-        .run { commentLikeCommandPort.create(this) }
+        ?. let {
+            deleteLike(it)
+        }
+        ?: run {
+            createLike(
+                commentId = dto.commentId,
+                userId = dto.userId
+            )
+        }
     }
 
-    fun increaseLikeCount(comment: Comment) {
-        val newLikeCount = comment.likeCount + 1
-        val newComment = comment.copy(likeCount = newLikeCount)
+    fun createLike(commentId: CommentId, userId: UserId) {
+        val comment = commentQueryPort.findById(commentId)
 
-        commentCommandPort.save(newComment)
+        commentLikeCommandPort.save(
+            CommentLike(
+                userId = userId,
+                comment = comment
+            )
+        )
+
+        commentCommandPort.save(
+            comment.copy(
+                likeCount = comment.likeCount + 1
+            )
+        )
+    }
+
+    fun deleteLike(commentLike: CommentLike) {
+        commentLikeCommandPort.delete(commentLike)
     }
 }

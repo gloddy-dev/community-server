@@ -1,16 +1,14 @@
 package gloddy.comment.port.out
 
-import gloddy.comment.ArticleId
+import gloddy.article.Article
 import gloddy.comment.Comment
 import gloddy.comment.CommentId
-import gloddy.comment.dto.readModel.CommentParentInfoDto
-import gloddy.comment.dto.readModel.CommentRefDto
+import gloddy.comment.dto.readModel.CommentFindByArticleDto
+import gloddy.comment.dto.readModel.CommentFindMaxRefDto
 
 
 interface CommentQueryPort {
-    fun getMaxRef(): CommentRefDto
-    fun getParentRef(): CommentParentInfoDto
+    fun findMaxRefByArticle(article: Article): CommentFindMaxRefDto
     fun findById(id: CommentId): Comment
-
-    fun findAllByArticleId(articleId: ArticleId): List<Comment>
+    fun findAllByArticle(article: Article, currentUserId: Long): List<CommentFindByArticleDto>
 }

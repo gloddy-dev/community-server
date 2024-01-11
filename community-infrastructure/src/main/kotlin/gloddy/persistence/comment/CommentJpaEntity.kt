@@ -1,28 +1,35 @@
 package gloddy.persistence.comment
 
+import gloddy.article.Article
+import gloddy.persistence.article.ArticleJpaEntity
 import gloddy.persistence.common.BaseTimeEntity
+import gloddy.user.User
 import jakarta.persistence.*
 
 @Entity
 @Table(name = "comment")
-class CommentEntity(
+class CommentJpaEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id: Long = 0L,
+    val id: Long = 0L,
 
     @Column(name = "user_id", nullable = false)
-    private val userId: Long,
+    val userId: Long,
 
-    @Column(name = "article_id", nullable = false)
-    private val articleId: Long,
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "article_id")
+    val article: ArticleJpaEntity,
 
     @Column(name = "like_count", nullable = false)
-    private val likeCount: Long,
+    val likeCount: Long,
+
+    @Column(name = "content", nullable = false)
+    @Lob
+    val content: String,
 
     @Column(name = "depth", nullable = false)
-    private val depth: Int,
+    val depth: Int,
 
     @Column(name = "ref", nullable = false)
-    private val ref: Int
-
+    val ref: Int,
 ): BaseTimeEntity()

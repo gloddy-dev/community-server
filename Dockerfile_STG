@@ -1,7 +1,5 @@
 FROM openjdk:17.0-slim
 
-EXPOSE 8080
-
 ARG PROJECT_DIRECTORY=/build
 WORKDIR $PROJECT_DIRECTORY
 
@@ -12,9 +10,8 @@ ENV TZ=Asia/Seoul
 
 EXPOSE 8080
 
-RUN  apt-get update \
-  && apt-get install -y wget \
+RUN apt-get update && apt-get install -y curl wget \
+  && wget -O dd-java-agent.jar 'https://dtdg.co/latest-java-tracer' \
   && rm -rf /var/lib/apt/lists/*
-RUN wget -O dd-java-agent.jar 'https://dtdg.co/latest-java-tracer'
 
-ENTRYPOINT ["java", "-javaagent:dd-java-agent.jar", "-Ddd.profiling.enabled=true", "-XX:FlightRecorderOptions=stackdepth=256", "-Ddd.appsec.enabled=true", "-Ddd.iast.enabled=true", "-Ddd.logs.injection=true", "-Ddd.jmxfetch.enabled=true", "-Ddd.service=gloddy-community", "-Ddd.env=staging", "-jar", "app.jar"]
+ENTRYPOINT ["sh", "-c", "export DD_AGENT_HOST=$(curl http://169.254.169.254/latest/meta-data/local-ipv4) && java -javaagent:dd-java-agent.jar -Ddd.profiling.enabled=true -XX:FlightRecorderOptions=stackdepth=256 -Ddd.appsec.enabled=true -Ddd.iast.enabled=true -Ddd.logs.injection=true -Ddd.jmxfetch.enabled=true -Ddd.service=gloddy-community -Ddd.env=staging -jar app.jar"]

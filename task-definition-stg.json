@@ -1,5 +1,5 @@
 {
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:750773866215:task-definition/community-stg:3",
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:750773866215:task-definition/community-stg:18",
   "containerDefinitions": [
     {
       "name": "springboot",
@@ -25,7 +25,6 @@
       ],
       "mountPoints": [],
       "volumesFrom": [],
-      "ulimits": [],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
@@ -41,8 +40,16 @@
       "name": "community-datadog-agent-stg",
       "image": "public.ecr.aws/datadog/agent:latest",
       "cpu": 102,
-      "memory": 102,
-      "portMappings": [],
+      "memory": 200,
+      "portMappings": [
+        {
+          "name": "datadog-agent-8126-tcp",
+          "containerPort": 8126,
+          "hostPort": 8126,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
       "essential": false,
       "environment": [
         {
@@ -60,11 +67,27 @@
       ],
       "environmentFiles": [
         {
-          "value": "arn:aws:s3:::gloddy-env/env/datadog.env",
+          "value": "arn:aws:s3:::gloddy-env/env/ec2-datadog.env",
           "type": "s3"
         }
       ],
-      "mountPoints": [],
+      "mountPoints": [
+        {
+          "sourceVolume": "docker_sock",
+          "containerPath": "/var/run/docker.sock",
+          "readOnly": true
+        },
+        {
+          "sourceVolume": "cgroup",
+          "containerPath": "/host/sys/fs/cgroup",
+          "readOnly": true
+        },
+        {
+          "sourceVolume": "proc",
+          "containerPath": "/host/proc",
+          "readOnly": true
+        }
+      ],
       "volumesFrom": [],
       "logConfiguration": {
         "logDriver": "awslogs",
@@ -82,8 +105,27 @@
   "taskRoleArn": "arn:aws:iam::750773866215:role/ec2-role-for-ec2",
   "executionRoleArn": "arn:aws:iam::750773866215:role/ecsTaskExecutionRole",
   "networkMode": "awsvpc",
-  "revision": 3,
-  "volumes": [],
+  "revision": 18,
+  "volumes": [
+    {
+      "name": "docker_sock",
+      "host": {
+        "sourcePath": "/var/run/docker.sock"
+      }
+    },
+    {
+      "name": "proc",
+      "host": {
+        "sourcePath": "/proc/"
+      }
+    },
+    {
+      "name": "cgroup",
+      "host": {
+        "sourcePath": "/sys/fs/cgroup/"
+      }
+    }
+  ],
   "status": "ACTIVE",
   "requiresAttributes": [
     {
@@ -130,7 +172,7 @@
     "cpuArchitecture": "X86_64",
     "operatingSystemFamily": "LINUX"
   },
-  "registeredAt": "2024-01-10T10:22:08.410Z",
+  "registeredAt": "2024-01-15T11:27:46.602Z",
   "registeredBy": "arn:aws:iam::750773866215:root",
   "tags": []
 }

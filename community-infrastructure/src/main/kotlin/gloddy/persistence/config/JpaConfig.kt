@@ -1,5 +1,9 @@
 package gloddy.persistence.config
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 87ab656 (feat: Article 페이징 쿼리 작성)
 import com.querydsl.jpa.impl.JPAQueryFactory
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext

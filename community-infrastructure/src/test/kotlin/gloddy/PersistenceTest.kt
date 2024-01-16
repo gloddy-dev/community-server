@@ -4,15 +4,18 @@ import gloddy.category.Category
 import gloddy.persistence.article.repository.ArticleJpaRepository
 import gloddy.persistence.article.repository.ArticleLikeJpaRepository
 import gloddy.persistence.category.repository.CategoryJpaRepository
+import gloddy.persistence.config.JpaConfig
 import gloddy.persistence.util.mapper.toDomain
 import gloddy.persistence.util.mapper.toEntity
 import jakarta.persistence.EntityManager
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
 
 @DataJpaTest
+@Import(JpaConfig::class)
 @ActiveProfiles("test")
 abstract class PersistenceTest {
 

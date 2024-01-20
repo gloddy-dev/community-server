@@ -1,7 +1,7 @@
 package gloddy.category.port.`in`
 
-import gloddy.category.port.dto.CategoryReadData
+import gloddy.category.port.`in`.dto.CategoryGetResponse
 
 interface CategoryQueryUseCase {
-    fun getAll(): List<CategoryReadData>
+    fun getAll(): List<CategoryGetResponse>
 }

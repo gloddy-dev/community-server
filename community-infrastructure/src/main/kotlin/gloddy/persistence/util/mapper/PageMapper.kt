@@ -1,7 +1,7 @@
 package gloddy.persistence.util.mapper
 
 import gloddy.article.port.`in`.dto.read.ArticleDetailUnit
-import gloddy.category.port.dto.CategoryReadData
+import gloddy.category.port.`in`.dto.CategoryGetResponse
 import gloddy.core.dto.PageResponse
 import gloddy.core.util.toResponse
 import gloddy.persistence.article.repository.read.ArticleDetailData
@@ -13,7 +13,7 @@ fun Page<ArticleDetailData>.toResponse(userId: Long): PageResponse<ArticleDetail
         userId = it.userId,
         isWriter = it.userId == userId,
         isLiked = it.articleLikeId != null,
-        category = CategoryReadData(
+        category = CategoryGetResponse(
             id = it.categoryId,
             name = it.categoryName
         ),

@@ -1,7 +1,7 @@
 package gloddy.controller.article
 
-import gloddy.article.dto.command.ArticleCreateCommand
-import gloddy.article.dto.read.ArticleIdReadData
+import gloddy.article.port.`in`.dto.command.ArticleCreateRequest
+import gloddy.article.port.`in`.dto.read.ArticleCreateResponse
 import gloddy.response.CommunityApiResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
@@ -16,8 +16,8 @@ interface ArticleCommandControllerDocs {
 
     @Operation(summary = "게시글 생성")
     @ApiResponse(responseCode = "201", description = "게시글 생성 성공")
-    fun create(@Parameter(hidden = true) userId: Long, @RequestBody command: ArticleCreateCommand)
-    : ResponseEntity<CommunityApiResponse<ArticleIdReadData>>
+    fun create(@Parameter(hidden = true) userId: Long, @RequestBody command: ArticleCreateRequest)
+    : ResponseEntity<CommunityApiResponse<ArticleCreateResponse>>
 
     @Operation(summary = "게시글 삭제")
     @ApiResponse(responseCode = "204", description = "게시글 삭제 성공")

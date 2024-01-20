@@ -1,10 +1,10 @@
 package gloddy.article.port.`in`
 
-import gloddy.article.dto.command.ArticleCreateCommand
-import gloddy.article.dto.read.ArticleIdReadData
+import gloddy.article.port.`in`.dto.command.ArticleCreateRequest
+import gloddy.article.port.`in`.dto.read.ArticleCreateResponse
 
 interface ArticleCommandUseCase {
-    fun create(userId: Long, command: ArticleCreateCommand): ArticleIdReadData
+    fun create(userId: Long, command: ArticleCreateRequest): ArticleCreateResponse
     fun delete(userId: Long, articleId: Long)
     fun like(userId: Long, articleId: Long)
 }

@@ -1,6 +1,6 @@
 package gloddy.controller.category
 
-import gloddy.category.port.dto.CategoryReadData
+import gloddy.category.port.`in`.dto.CategoryGetResponse
 import gloddy.category.port.`in`.CategoryQueryUseCase
 import gloddy.response.CommunityApiResponse
 import gloddy.response.ApiResponseEntityWrapper
@@ -19,7 +19,7 @@ class CategoryQueryController(
 
 
     @GetMapping("/categories")
-    override fun getAll(@RequestHeader("USER_ID") userId: Long): ResponseEntity<CommunityApiResponse<List<CategoryReadData>>> {
+    override fun getAll(@RequestHeader("USER_ID") userId: Long): ResponseEntity<CommunityApiResponse<List<CategoryGetResponse>>> {
         val data = categoryQueryUseCase.getAll()
         return ApiResponseEntityWrapper(data).ok()
     }

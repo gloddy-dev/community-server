@@ -9,7 +9,7 @@ import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.RequestHeader
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestParam
 
 @Tag(name = "게시글")
@@ -24,4 +24,11 @@ interface ArticleQueryControllerDocs {
         @RequestParam(name = "size", required = false, defaultValue = "5") size: Int,
         @RequestParam(name = "order", required = false, defaultValue = "LATEST") order: ArticleOrder
     ) : ResponseEntity<CommunityApiResponse<PageResponse<ArticleDetailResponse>>>
+
+    @Operation(summary = "게시글 단건 조회")
+    @ApiResponse(responseCode = "200", description = "게시글 단건 조회 성공")
+    fun getArticleDetail(
+        @Parameter(hidden = true) userId: Long,
+        @PathVariable("articleId") articleId: Long
+    ): ResponseEntity<CommunityApiResponse<ArticleDetailResponse>>
 }

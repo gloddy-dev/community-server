@@ -8,4 +8,6 @@ import org.springframework.data.domain.Pageable
 interface ArticleJpaRepositoryCustom {
     fun findDetailArticlePageByCategoryId(categoryId: Long? = null, userId: Long, pageable: Pageable, order: ArticleOrder)
     : Page<ArticleDetailData>
+
+    fun findDetailArticleByIdOrNull(id: Long, userId: Long): ArticleDetailData?
 }

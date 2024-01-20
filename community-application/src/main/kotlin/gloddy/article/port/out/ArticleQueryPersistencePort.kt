@@ -15,4 +15,9 @@ interface ArticleQueryPersistencePort {
         page: Int,
         order: ArticleOrder,
     ): PageResponse<ArticleDetailUnit>
+
+    fun findArticleDetailUnitById(
+        id: Long,
+        userId: Long
+    ): ArticleDetailUnit
 }

@@ -62,6 +62,32 @@ class ArticleJpaRepositoryImpl(
             totalCount!!
         )
     }
+    override fun findDetailArticleByIdOrNull(id: Long, userId: Long): ArticleDetailData? {
+        return query.select(
+            QArticleDetailData(
+                articleJpaEntity.id,
+                articleJpaEntity.userId,
+                articleJpaEntity.category.id,
+                articleJpaEntity.category.name,
+                articleJpaEntity.title,
+                articleJpaEntity.content,
+                articleJpaEntity.images,
+                articleJpaEntity.commentCount,
+                articleJpaEntity.likeCount,
+                articleJpaEntity.createdAt,
+                articleJpaEntity.updatedAt,
+                articleLikeJpaEntity.id
+            )
+        ).from(articleJpaEntity)
+            .innerJoin(articleJpaEntity.category, categoryJpaEntity)
+            .leftJoin(articleLikeJpaEntity)
+            .on(
+                articleJpaEntity.id.eq(articleLikeJpaEntity.article.id)
+                    .and(articleLikeJpaEntity.userId.eq(userId))
+            )
+            .where(eqId(id))
+            .fetchOne()
+    }
 
     private fun eqCategoryIdOrNull(categoryId: Long?): BooleanExpression? {
         return categoryId?.let {
@@ -74,4 +100,7 @@ class ArticleJpaRepositoryImpl(
           ArticleOrder.LATEST -> articleJpaEntity.createdAt.desc()
       }
     }
+
+    private fun eqId(id: Long): BooleanExpression =
+        articleJpaEntity.id.eq(id)
 }

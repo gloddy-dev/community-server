@@ -1,6 +1,7 @@
 package gloddy.article.service
 
 import gloddy.article.port.`in`.ArticleQueryUseCase
+import gloddy.article.port.`in`.dto.command.ArticleDetailGetRequest
 import gloddy.article.port.`in`.dto.command.ArticleDetailPageGetRequest
 import gloddy.article.port.`in`.dto.read.ArticleDetailResponse
 import gloddy.article.port.out.ArticleQueryPersistencePort
@@ -39,6 +40,18 @@ class ArticleQueryService(
                         writer = userPreviewUnits[it.userId]!!
                     )
                 }
+        )
+    }
+
+    override fun getArticleDetail(request: ArticleDetailGetRequest): ArticleDetailResponse {
+        val articleDetailUnit = articleQueryPersistencePort.findArticleDetailUnitById(
+            id = request.id,
+            userId = request.userId
+        )
+        val userPreviewUnit = userQueryPort.getUserPreviewUnit(request.userId)
+        return ArticleDetailResponse(
+            article = articleDetailUnit,
+            writer = userPreviewUnit
         )
     }
 }

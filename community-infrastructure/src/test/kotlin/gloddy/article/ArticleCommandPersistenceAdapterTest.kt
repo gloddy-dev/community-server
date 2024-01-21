@@ -24,7 +24,7 @@ class ArticleCommandPersistenceAdapterTest : PersistenceTest() {
     @BeforeEach
     fun setUp() {
         article = ArticleFixture.JIHWAN.toDomain(USER_ID, CATEGORY[0])
-        articleCommandPersistenceAdapter = ArticleCommandPersistenceAdapter(articleJpaRepository)
+        articleCommandPersistenceAdapter = ArticleCommandPersistenceAdapter(articleJpaRepository, articleLikeJpaRepository)
     }
 
     @Nested

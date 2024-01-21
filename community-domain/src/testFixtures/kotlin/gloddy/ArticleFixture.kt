@@ -14,7 +14,8 @@ enum class ArticleFixture(
     private val content: String,
     private val image: ArticleImage,
 ) {
-    JIHWAN(null, QNA.toPersistDomain(2L), "한국 핫플", "요즘 한국 핫플이 어디에용?", ArticleImage(null));
+    JIHWAN(null, QNA.toPersistDomain(2L), "한국 핫플", "요즘 한국 핫플이 어디에용?", ArticleImage(null)),
+    HAVE_IMAGE(null, LANGUAGE.toPersistDomain(1L), "언어 모임", "언어 모임 하실 분~!", ArticleImage(listOf("image1", "image2")));
 
     fun toDomain(userId: Long, category: Category? = null): Article =
         Article(

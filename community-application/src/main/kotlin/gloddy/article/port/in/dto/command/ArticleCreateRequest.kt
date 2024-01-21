@@ -1,6 +1,6 @@
-package gloddy.article.dto.command
+package gloddy.article.port.`in`.dto.command
 
-data class ArticleCreateCommand(
+data class ArticleCreateRequest(
     val categoryId: Long,
     val title: String,
     val content: String,

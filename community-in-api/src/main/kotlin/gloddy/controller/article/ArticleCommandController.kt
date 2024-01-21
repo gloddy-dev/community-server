@@ -1,7 +1,7 @@
 package gloddy.controller.article
 
-import gloddy.article.dto.command.ArticleCreateCommand
-import gloddy.article.dto.read.ArticleIdReadData
+import gloddy.article.port.`in`.dto.command.ArticleCreateRequest
+import gloddy.article.port.`in`.dto.read.ArticleCreateResponse
 import gloddy.article.port.`in`.ArticleCommandUseCase
 import gloddy.response.CommunityApiResponse
 import gloddy.response.ApiResponseEntityWrapper
@@ -20,8 +20,8 @@ class ArticleCommandController(
     @PostMapping("/articles/create")
     override fun create(
         @RequestHeader("USER_ID") userId: Long,
-        @RequestBody command: ArticleCreateCommand,
-    ): ResponseEntity<CommunityApiResponse<ArticleIdReadData>> {
+        @RequestBody command: ArticleCreateRequest,
+    ): ResponseEntity<CommunityApiResponse<ArticleCreateResponse>> {
         val data = articleCommandUseCase.create(userId, command)
         return ApiResponseEntityWrapper(data).created()
     }
@@ -36,7 +36,7 @@ class ArticleCommandController(
     @PostMapping("/articles/{articleId}/like")
     override fun like(@RequestHeader("USER_ID") userId: Long, @PathVariable("articleId") articleId: Long)
             : ResponseEntity<CommunityApiResponse<Nothing>> {
-        articleCommandUseCase.like(userId, articleId)
+        articleCommandUseCase.upsertLike(userId, articleId)
         return ApiResponseEntityWrapper<Nothing>().noContent()
     }
 }

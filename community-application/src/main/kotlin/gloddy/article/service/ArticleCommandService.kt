@@ -2,8 +2,8 @@ package gloddy.article.service
 
 import gloddy.article.Article
 import gloddy.article.ArticleLike
-import gloddy.article.dto.command.ArticleCreateCommand
-import gloddy.article.dto.read.ArticleIdReadData
+import gloddy.article.port.`in`.dto.command.ArticleCreateRequest
+import gloddy.article.port.`in`.dto.read.ArticleCreateResponse
 import gloddy.article.port.`in`.ArticleCommandUseCase
 import gloddy.article.port.out.ArticleCommandPersistencePort
 import gloddy.article.port.out.ArticleLikeCommandPersistencePort
@@ -20,10 +20,10 @@ class ArticleCommandService(
     private val articleQueryPersistencePort: ArticleQueryPersistencePort,
     private val articleCommandPersistencePort: ArticleCommandPersistencePort,
     private val articleLikeCommandPersistencePort: ArticleLikeCommandPersistencePort,
-    private val articleLikeQueryPersistencePort: ArticleLikeQueryPersistencePort
+    private val articleLikeQueryPersistencePort: ArticleLikeQueryPersistencePort,
 ) : ArticleCommandUseCase {
 
-    override fun create(userId: Long, command: ArticleCreateCommand) : ArticleIdReadData {
+    override fun create(userId: Long, command: ArticleCreateRequest): ArticleCreateResponse {
 
         val category = categoryQueryPersistencePort.findById(CategoryId(command.categoryId))
 
@@ -34,7 +34,7 @@ class ArticleCommandService(
             content = command.content,
             images = command.images,
         ).let { articleCommandPersistencePort.save(it) }
-        return ArticleIdReadData(articleId = article.id!!.value)
+        return ArticleCreateResponse(articleId = article.id!!.value)
     }
 
     override fun delete(userId: Long, articleId: Long) {
@@ -43,17 +43,21 @@ class ArticleCommandService(
         articleCommandPersistencePort.delete(article.id!!.value)
     }
 
-    override fun like(userId: Long, articleId: Long) {
-
+    override fun upsertLike(userId: Long, articleId: Long) {
         val article = articleQueryPersistencePort.findById(articleId)
-
         articleLikeQueryPersistencePort.findByUserIdAndArticleOrNull(userId, article)
-            ?.run { articleLikeCommandPersistencePort.delete(this) }
-            ?: articleLikeCommandPersistencePort.save(
-                ArticleLike(
+            ?.run {
+                articleCommandPersistencePort.upsertLike(
+                    articleLike = this,
+                    article = article.unlike()
+                )
+            }
+            ?: articleCommandPersistencePort.upsertLike(
+                articleLike = ArticleLike(
                     userId = UserId(userId),
                     article = article
-                )
+                ),
+                article = article.like()
             )
     }
 }

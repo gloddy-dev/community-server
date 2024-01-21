@@ -4,7 +4,7 @@ import gloddy.category.Category
 import gloddy.core.CategoryId
 
 enum class CategoryFixture(
-    private val names: String,
+    val names: String,
 ) {
     K_POP("K-POP"),
     QNA("Q&A"),

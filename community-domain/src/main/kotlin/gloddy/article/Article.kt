@@ -5,15 +5,18 @@ import gloddy.article.vo.ArticleImage
 import gloddy.category.Category
 import gloddy.core.ArticleId
 import gloddy.core.UserId
+import java.time.LocalDateTime
+import java.time.LocalDateTime.*
 
 data class Article(
     val userId: UserId,
-    var category: Category,
-    var title: String,
-    var content: String,
-    var image: ArticleImage,
-    var commentCount: Int = 0,
-    var likeCount: Int = 0,
+    val category: Category,
+    val title: String,
+    val content: String,
+    val image: ArticleImage,
+    val commentCount: Int = 0,
+    val likeCount: Int = 0,
+    val createdAt: LocalDateTime = now(),
     val id: ArticleId? = null,
 ) {
     constructor(
@@ -37,4 +40,14 @@ data class Article(
             throw ArticleNoAuthorizationException()
         }
     }
+
+    fun like(): Article =
+        this.copy(
+            likeCount = this.likeCount + 1
+        )
+
+    fun unlike(): Article =
+        this.copy(
+            likeCount = this.likeCount - 1
+        )
 }

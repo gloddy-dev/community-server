@@ -6,5 +6,5 @@ import gloddy.article.port.`in`.dto.read.ArticleCreateResponse
 interface ArticleCommandUseCase {
     fun create(userId: Long, command: ArticleCreateRequest): ArticleCreateResponse
     fun delete(userId: Long, articleId: Long)
-    fun like(userId: Long, articleId: Long)
+    fun upsertLike(userId: Long, articleId: Long)
 }

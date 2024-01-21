@@ -36,7 +36,7 @@ class ArticleCommandController(
     @PostMapping("/articles/{articleId}/like")
     override fun like(@RequestHeader("USER_ID") userId: Long, @PathVariable("articleId") articleId: Long)
             : ResponseEntity<CommunityApiResponse<Nothing>> {
-        articleCommandUseCase.like(userId, articleId)
+        articleCommandUseCase.upsertLike(userId, articleId)
         return ApiResponseEntityWrapper<Nothing>().noContent()
     }
 }

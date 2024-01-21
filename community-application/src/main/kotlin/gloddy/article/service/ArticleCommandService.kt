@@ -20,10 +20,10 @@ class ArticleCommandService(
     private val articleQueryPersistencePort: ArticleQueryPersistencePort,
     private val articleCommandPersistencePort: ArticleCommandPersistencePort,
     private val articleLikeCommandPersistencePort: ArticleLikeCommandPersistencePort,
-    private val articleLikeQueryPersistencePort: ArticleLikeQueryPersistencePort
+    private val articleLikeQueryPersistencePort: ArticleLikeQueryPersistencePort,
 ) : ArticleCommandUseCase {
 
-    override fun create(userId: Long, command: ArticleCreateRequest) : ArticleCreateResponse {
+    override fun create(userId: Long, command: ArticleCreateRequest): ArticleCreateResponse {
 
         val category = categoryQueryPersistencePort.findById(CategoryId(command.categoryId))
 
@@ -43,17 +43,21 @@ class ArticleCommandService(
         articleCommandPersistencePort.delete(article.id!!.value)
     }
 
-    override fun like(userId: Long, articleId: Long) {
-
+    override fun upsertLike(userId: Long, articleId: Long) {
         val article = articleQueryPersistencePort.findById(articleId)
-
         articleLikeQueryPersistencePort.findByUserIdAndArticleOrNull(userId, article)
-            ?.run { articleLikeCommandPersistencePort.delete(this) }
-            ?: articleLikeCommandPersistencePort.save(
-                ArticleLike(
+            ?.run {
+                articleCommandPersistencePort.upsertLike(
+                    articleLike = this,
+                    article = article.unlike()
+                )
+            }
+            ?: articleCommandPersistencePort.upsertLike(
+                articleLike = ArticleLike(
                     userId = UserId(userId),
                     article = article
-                )
+                ),
+                article = article.like()
             )
     }
 }

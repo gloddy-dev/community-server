@@ -5,6 +5,7 @@ import gloddy.persistence.common.BaseTimeEntity
 import gloddy.persistence.util.converter.StringArrayConverter
 import jakarta.persistence.*
 import org.hibernate.annotations.SQLRestriction
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "article")
@@ -35,7 +36,11 @@ class ArticleJpaEntity(
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-) : BaseTimeEntity() {
+
+    createdAt: LocalDateTime? = null
+) : BaseTimeEntity(
+    createdAt =  createdAt
+) {
     fun changeDeletedToTrue() {
         this.deleted = true
     }

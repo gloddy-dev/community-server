@@ -7,6 +7,7 @@ import gloddy.core.ArticleId
 import gloddy.core.UserId
 import gloddy.persistence.article.ArticleJpaEntity
 import gloddy.persistence.article.ArticleLikeJpaEntity
+import kotlin.io.path.createTempDirectory
 
 fun Article.toEntity() : ArticleJpaEntity =
     ArticleJpaEntity(
@@ -17,6 +18,7 @@ fun Article.toEntity() : ArticleJpaEntity =
         images = this.image.images,
         commentCount = this.commentCount,
         likeCount = this.likeCount,
+        createdAt = this.createdAt,
         id = this.id?.value
     )
 
@@ -29,6 +31,7 @@ fun ArticleJpaEntity.toDomain() : Article =
         image = ArticleImage(this.images),
         commentCount = this.commentCount,
         likeCount = this.likeCount,
+        createdAt = this.createdAt!!,
         id = ArticleId(this.id!!)
     )
 

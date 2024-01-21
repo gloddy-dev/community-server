@@ -5,6 +5,8 @@ import gloddy.article.vo.ArticleImage
 import gloddy.category.Category
 import gloddy.core.ArticleId
 import gloddy.core.UserId
+import java.time.LocalDateTime
+import java.time.LocalDateTime.*
 
 data class Article(
     val userId: UserId,
@@ -14,6 +16,7 @@ data class Article(
     val image: ArticleImage,
     val commentCount: Int = 0,
     val likeCount: Int = 0,
+    val createdAt: LocalDateTime = now(),
     val id: ArticleId? = null,
 ) {
     constructor(

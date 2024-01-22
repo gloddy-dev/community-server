@@ -2,8 +2,8 @@ package gloddy.persistence.util.mapper
 
 import gloddy.comment.CommentLike
 import gloddy.comment.CommentLikeId
+import gloddy.core.UserId
 import gloddy.persistence.comment.CommentLikeJpaEntity
-import gloddy.user.UserId
 
 fun CommentLikeJpaEntity.toDomain(): CommentLike =
     CommentLike(

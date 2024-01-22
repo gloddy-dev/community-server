@@ -1,14 +1,14 @@
 package gloddy.controller.comment
 
-import gloddy.comment.ArticleId
-import gloddy.comment.CommentId
 import gloddy.comment.dto.*
 import gloddy.comment.service.CommentCreateService
 import gloddy.comment.service.CommentDeleteService
 import gloddy.comment.service.CommentLikeUpsertService
 import gloddy.controller.comment.model.CommentCreateRequest
+import gloddy.core.ArticleId
+import gloddy.core.CommentId
+import gloddy.core.UserId
 import gloddy.response.*
-import gloddy.user.UserId
 import io.swagger.v3.oas.annotations.Parameter
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping

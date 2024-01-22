@@ -1,9 +1,7 @@
 package gloddy.persistence.comment.repository
 
-import gloddy.persistence.article.ArticleJpaEntity
-import gloddy.persistence.comment.model.CommentFindByArticleDto
-import gloddy.persistence.comment.model.CommentFindMaxRefDto
+import gloddy.persistence.comment.model.FindParentCommentsByArticleIdData
 
 interface CommentJpaCustomRepository {
-    fun findAllByArticle(article: ArticleJpaEntity, currentUserId: Long): List<CommentFindByArticleDto>
+    fun findParentCommentsByArticleId(articleId: Long, userId: Long): List<FindParentCommentsByArticleIdData>
 }

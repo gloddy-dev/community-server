@@ -1,5 +1,6 @@
 package gloddy.persistence.comment
 
+import gloddy.persistence.common.BaseTimeEntity
 import jakarta.persistence.*
 
 @Entity
@@ -15,4 +16,5 @@ class CommentLikeJpaEntity (
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comment_id")
     val comment: CommentJpaEntity
-)
+) : BaseTimeEntity() {
+}

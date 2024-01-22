@@ -1,13 +1,13 @@
 package gloddy.comment.service
 
-import gloddy.comment.CommentId
 import gloddy.comment.port.out.CommentCommandPort
 import gloddy.comment.port.out.CommentQueryPort
 import gloddy.comment.CommentLike
 import gloddy.comment.dto.CommentLikeUpsertRequest
 import gloddy.comment.port.out.CommentLikeCommandPort
 import gloddy.comment.port.out.CommentLikeQueryPort
-import gloddy.user.UserId
+import gloddy.core.CommentId
+import gloddy.core.UserId
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

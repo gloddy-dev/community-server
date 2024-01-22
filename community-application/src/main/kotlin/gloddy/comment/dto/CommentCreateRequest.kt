@@ -1,8 +1,8 @@
 package gloddy.comment.dto
 
-import gloddy.comment.ArticleId
-import gloddy.comment.CommentId
-import gloddy.user.UserId
+import gloddy.core.ArticleId
+import gloddy.core.CommentId
+import gloddy.core.UserId
 
 data class ParentCommentCreateRequest(
     val userId: UserId,

@@ -1,16 +1,13 @@
 package gloddy.persistence.comment.adapter
 
-import gloddy.article.Article
 import gloddy.comment.Comment
-import gloddy.comment.CommentId
 import gloddy.comment.CommentNotFoundException
-import gloddy.comment.dto.readModel.CommentFindByArticleDto
-import gloddy.comment.dto.readModel.CommentFindMaxRefDto
+import gloddy.comment.dto.readModel.ParentCommentUnit
 import gloddy.comment.port.out.CommentQueryPort
-import gloddy.persistence.comment.model.toResponseDto
+import gloddy.core.CommentId
+import gloddy.persistence.comment.model.toResponse
 import gloddy.persistence.comment.repository.CommentJpaRepository
 import gloddy.persistence.util.mapper.toDomain
-import gloddy.persistence.util.mapper.toEntity
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 
@@ -25,8 +22,8 @@ class CommentQueryAdapter(
             ?: throw CommentNotFoundException()
     }
 
-    override fun findAllByArticle(article: Article, currentUserId: Long): List<CommentFindByArticleDto> {
-        return commentJpaRepository.findAllByArticle(article.toEntity(), currentUserId)
-            .map { it.toResponseDto() }
+    override fun findParentComments(articleId: Long, userId: Long): List<ParentCommentUnit> {
+        return commentJpaRepository.findParentCommentsByArticleId(articleId, userId)
+            .map { it.toResponse(userId) }
     }
 }

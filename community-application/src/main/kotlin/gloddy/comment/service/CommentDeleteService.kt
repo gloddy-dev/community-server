@@ -5,9 +5,7 @@ import gloddy.comment.CommentNotAuthorizationException
 import gloddy.comment.dto.CommentDeleteRequest
 import gloddy.comment.port.out.CommentCommandPort
 import gloddy.comment.port.out.CommentQueryPort
-import gloddy.user.User
-import gloddy.user.UserId
-import gloddy.user.port.out.UserQueryPort
+import gloddy.core.UserId
 import org.springframework.stereotype.Service
 
 @Service

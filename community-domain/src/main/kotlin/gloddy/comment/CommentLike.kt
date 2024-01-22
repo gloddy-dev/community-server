@@ -1,6 +1,6 @@
 package gloddy.comment
 
-import gloddy.user.UserId
+import gloddy.core.UserId
 
 @JvmInline
 value class CommentLikeId(val value: Long)

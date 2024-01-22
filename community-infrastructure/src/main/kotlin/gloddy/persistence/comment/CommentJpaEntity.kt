@@ -1,13 +1,14 @@
 package gloddy.persistence.comment
 
-import gloddy.article.Article
 import gloddy.persistence.article.ArticleJpaEntity
 import gloddy.persistence.common.BaseTimeEntity
-import gloddy.user.User
 import jakarta.persistence.*
+import org.hibernate.annotations.SQLRestriction
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "comment")
+@SQLRestriction("deleted = false")
 class CommentJpaEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,16 +21,21 @@ class CommentJpaEntity(
     @JoinColumn(name = "article_id")
     val article: ArticleJpaEntity,
 
-    @Column(name = "like_count", nullable = false)
-    val likeCount: Long,
-
-    @Column(name = "content", nullable = false)
-    @Lob
+    @Column(name = "content", nullable = false, columnDefinition = "longtext")
     val content: String,
 
-    @Column(name = "depth", nullable = false)
-    val depth: Int,
+    @Column(name = "like_count", nullable = false)
+    val likeCount: Int,
 
-    @Column(name = "ref", nullable = false)
-    val ref: Int,
-): BaseTimeEntity()
+    @Column(name = "comment_count", nullable = false)
+    val commentCount: Int,
+
+    @Column(name = "parent_id", nullable = false)
+    val parentId: Long,
+
+    var deleted: Boolean = false,
+
+    createdAt: LocalDateTime? = null
+): BaseTimeEntity(
+    createdAt = createdAt
+)

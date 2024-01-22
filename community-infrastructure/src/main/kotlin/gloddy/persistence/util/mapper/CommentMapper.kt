@@ -10,19 +10,20 @@ fun CommentJpaEntity.toDomain(): Comment =
         id = CommentId(this.id),
         userId = UserId(this.userId),
         article = this.article.toDomain(),
-        likeCount = this.likeCount,
         content = this.content,
-        depth = this.depth,
-        ref = this.ref,
-        createdAt = this.createdAt!!,
+        likeCount = this.likeCount,
+        commentCount = this.commentCount,
+        parentId = CommentId(this.parentId),
+        createdAt = this.createdAt!!
     )
 
 fun Comment.toEntity(): CommentJpaEntity =
     CommentJpaEntity(
         userId = this.userId.value,
         article = this.article.toEntity(),
-        likeCount = this.likeCount,
         content = this.content,
-        depth = this.depth,
-        ref = this.ref,
+        likeCount = this.likeCount,
+        commentCount = this.commentCount,
+        parentId = this.parentId.value,
+        createdAt = this.createdAt
     )

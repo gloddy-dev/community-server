@@ -4,8 +4,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory
 import gloddy.persistence.article.ArticleJpaEntity
 import gloddy.persistence.comment.QCommentJpaEntity.commentJpaEntity
 import gloddy.persistence.comment.QCommentLikeJpaEntity.commentLikeJpaEntity
-import gloddy.persistence.comment.model.CommentFindByArticleDto
-import gloddy.persistence.comment.model.QCommentFindByArticleDto
+import gloddy.persistence.comment.model.FindParentCommentsByArticleIdData
+import gloddy.persistence.comment.model.QFindParentCommentsByArticleIdData
 import gloddy.persistence.comment.repository.CommentJpaCustomRepository
 import org.springframework.stereotype.Repository
 
@@ -14,35 +14,29 @@ class CommentJpaCustomRepositoryImpl(
     private val query: JPAQueryFactory
 ): CommentJpaCustomRepository {
 
-    override fun findAllByArticle(article: ArticleJpaEntity, currentUserId: Long): List<CommentFindByArticleDto> {
-        return query
-            .select(
-                QCommentFindByArticleDto(
-                    commentJpaEntity.id,
-                    commentJpaEntity.userId,
-                    commentJpaEntity.article,
-                    commentJpaEntity.likeCount,
-                    commentJpaEntity.content,
-                    commentJpaEntity.depth,
-                    commentJpaEntity.ref,
-                    commentJpaEntity.createdAt,
-                    commentLikeJpaEntity.userId
-                )
+    override fun findParentCommentsByArticleId(articleId: Long, userId: Long): List<FindParentCommentsByArticleIdData> {
+        return query.select(
+            QFindParentCommentsByArticleIdData(
+                commentJpaEntity.id,
+                commentJpaEntity.userId,
+                commentJpaEntity.article.id,
+                commentJpaEntity.content,
+                commentJpaEntity.likeCount,
+                commentJpaEntity.commentCount,
+                commentJpaEntity.createdAt,
+                commentJpaEntity.updatedAt,
+                commentLikeJpaEntity.id
             )
-            .from(commentJpaEntity)
+        ).from(commentJpaEntity)
             .leftJoin(commentLikeJpaEntity)
-            .on(commentJpaEntity.id.eq(commentLikeJpaEntity.comment.id))
-            .orderBy(commentJpaEntity.createdAt.desc())
+            .on(
+                commentJpaEntity.id.eq(commentLikeJpaEntity.comment.id)
+                    .and(commentLikeJpaEntity.userId.eq(userId))
+            )
+            .where(articleIdEq(articleId))
             .fetch()
-//
-//        val total: Long? = query.select(commentJpaEntity.count())
-//            .from(commentJpaEntity)
-//            .where(articleEq(article))
-//            .fetchOne()
-//
-//        return PageImpl(comments, pageable, total ?: 0)
     }
 
-    private fun articleEq(article: ArticleJpaEntity) =
-        commentJpaEntity.article.eq(article)
+    private fun articleIdEq(articleId: Long) =
+        commentJpaEntity.article.id.eq(articleId)
 }

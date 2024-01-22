@@ -1,14 +1,9 @@
 package gloddy.comment
 
 import gloddy.article.Article
-import gloddy.user.UserId
+import gloddy.core.CommentId
+import gloddy.core.UserId
 import java.time.LocalDateTime
-
-@JvmInline
-value class ArticleId(val value: Long)
-
-@JvmInline
-value class CommentId(val value: Long)
 
 data class Comment(
     val id: CommentId? = CommentId(0L),

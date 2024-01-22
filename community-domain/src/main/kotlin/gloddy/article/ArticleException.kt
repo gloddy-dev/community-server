@@ -4,19 +4,19 @@ import gloddy.core.ErrorCode
 import gloddy.core.GloddyCommunityException
 
 class ArticleNotFoundException : GloddyCommunityException(
-    statusCode = 404,
-    errorCode = ErrorCode.ARTICLE_NOT_FOUND,
-    message = "존재하지 않는 게시글입니다."
+    statusCode = ErrorCode.ARTICLE_NOT_FOUND.statusCode,
+    errorCode = ErrorCode.ARTICLE_NOT_FOUND.errorCode,
+    message = ErrorCode.ARTICLE_NOT_FOUND.message
 )
 
 class ArticleNoAuthorizationException : GloddyCommunityException(
-    statusCode = 401,
-    errorCode = ErrorCode.ARTICLE_NO_AUTHORIZATION,
-    message = "해당 게시글에 권한이 없습니다."
+    statusCode = ErrorCode.ARTICLE_NO_AUTHORIZATION.statusCode,
+    errorCode = ErrorCode.ARTICLE_NO_AUTHORIZATION.errorCode,
+    message = ErrorCode.ARTICLE_NO_AUTHORIZATION.message
 )
 
 class ArticleImageSizeOverException : GloddyCommunityException(
-    statusCode = 400,
-    errorCode = ErrorCode.ARTICLE_IMAGE_SIZE_OVER,
-    message = "게시글에 이미지는 최대 3개 입니다."
+    statusCode = ErrorCode.ARTICLE_IMAGE_SIZE_OVER.statusCode,
+    errorCode = ErrorCode.ARTICLE_IMAGE_SIZE_OVER.errorCode,
+    message = ErrorCode.ARTICLE_IMAGE_SIZE_OVER.message
 )

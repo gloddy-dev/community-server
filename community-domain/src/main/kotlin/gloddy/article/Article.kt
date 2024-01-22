@@ -1,6 +1,5 @@
 package gloddy.article
 
-import gloddy.article.exception.ArticleNoAuthorizationException
 import gloddy.article.vo.ArticleImage
 import gloddy.category.Category
 import gloddy.core.ArticleId

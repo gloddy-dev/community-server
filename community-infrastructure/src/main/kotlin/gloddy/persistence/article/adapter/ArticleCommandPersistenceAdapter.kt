@@ -2,7 +2,7 @@ package gloddy.persistence.article.adapter
 
 import gloddy.article.Article
 import gloddy.article.ArticleLike
-import gloddy.article.exception.ArticleNotFoundException
+import gloddy.article.ArticleNotFoundException
 import gloddy.article.port.out.ArticleCommandPersistencePort
 import gloddy.persistence.article.ArticleJpaEntity
 import gloddy.persistence.article.repository.ArticleJpaRepository

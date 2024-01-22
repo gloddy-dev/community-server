@@ -7,6 +7,6 @@ package gloddy.core
  */
 abstract class GloddyCommunityException(
     open val statusCode: Int,
-    open val errorCode: ErrorCode,
-    override val message: String?
+    open val errorCode: String,
+    override val message: String
 ): RuntimeException(message)

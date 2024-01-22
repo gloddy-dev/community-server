@@ -1,7 +1,7 @@
 package gloddy.persistence.category.adapter
 
 import gloddy.category.Category
-import gloddy.category.exception.CategoryNotFoundException
+import gloddy.category.CategoryNotFoundException
 import gloddy.category.port.out.CategoryQueryPersistencePort
 import gloddy.core.CategoryId
 import gloddy.persistence.category.repository.CategoryJpaRepository

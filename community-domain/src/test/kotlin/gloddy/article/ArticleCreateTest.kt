@@ -1,6 +1,5 @@
 package gloddy.article
 
-import gloddy.article.exception.ArticleImageSizeOverException
 import gloddy.article.vo.ArticleImage
 import gloddy.core.UserId
 import gloddy.CategoryFixture.*

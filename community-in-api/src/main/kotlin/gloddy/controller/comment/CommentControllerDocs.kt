@@ -1,6 +1,5 @@
 package gloddy.controller.comment
 
-import gloddy.article.dto.read.ArticleIdReadData
 import gloddy.comment.dto.CommentCreateResponse
 import gloddy.controller.comment.model.CommentCreateRequest
 import gloddy.response.CommunityApiResponse

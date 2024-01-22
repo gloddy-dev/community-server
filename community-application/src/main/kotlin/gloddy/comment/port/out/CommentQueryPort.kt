@@ -8,7 +8,6 @@ import gloddy.comment.dto.readModel.CommentFindMaxRefDto
 
 
 interface CommentQueryPort {
-    fun findMaxRefByArticle(article: Article): CommentFindMaxRefDto
     fun findById(id: CommentId): Comment
     fun findAllByArticle(article: Article, currentUserId: Long): List<CommentFindByArticleDto>
 }

@@ -1,14 +1,11 @@
 package gloddy.persistence.comment.repository.impl
 
 import com.querydsl.jpa.impl.JPAQueryFactory
-import gloddy.article.Article
 import gloddy.persistence.article.ArticleJpaEntity
 import gloddy.persistence.comment.QCommentJpaEntity.commentJpaEntity
 import gloddy.persistence.comment.QCommentLikeJpaEntity.commentLikeJpaEntity
 import gloddy.persistence.comment.model.CommentFindByArticleDto
-import gloddy.persistence.comment.model.CommentFindMaxRefDto
 import gloddy.persistence.comment.model.QCommentFindByArticleDto
-import gloddy.persistence.comment.model.QCommentFindMaxRefDto
 import gloddy.persistence.comment.repository.CommentJpaCustomRepository
 import org.springframework.stereotype.Repository
 
@@ -44,18 +41,6 @@ class CommentJpaCustomRepositoryImpl(
 //            .fetchOne()
 //
 //        return PageImpl(comments, pageable, total ?: 0)
-    }
-
-    override fun findOneByArticleOrderByRefDesc(article: ArticleJpaEntity): CommentFindMaxRefDto? {
-        return query.select(
-                QCommentFindMaxRefDto(
-                    commentJpaEntity.ref
-                )
-            )
-            .from(commentJpaEntity)
-            .where(articleEq(article))
-            .orderBy(commentJpaEntity.ref.desc())
-            .fetchOne()
     }
 
     private fun articleEq(article: ArticleJpaEntity) =

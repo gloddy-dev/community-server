@@ -56,10 +56,11 @@ class CommentController(
         @PathVariable("commentId") commentId: Long,
         @RequestBody request: CommentCreateRequest
     ): ResponseEntity<CommunityApiResponse<CommentCreateResponse>> {
-        val data = commentCreateService.createParent(
-            ParentCommentCreateRequest(
+        val data = commentCreateService.createChild(
+            ChildCommentCreateRequest(
                 userId = UserId(userId),
                 articleId = ArticleId(articleId),
+                parentCommentId = CommentId(commentId),
                 content = request.content
             )
         )

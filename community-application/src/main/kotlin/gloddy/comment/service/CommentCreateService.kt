@@ -7,25 +7,20 @@ import gloddy.comment.dto.CommentCreateResponse
 import gloddy.comment.dto.ParentCommentCreateRequest
 import gloddy.comment.port.out.CommentCommandPort
 import gloddy.comment.port.out.CommentQueryPort
-import gloddy.user.port.out.UserQueryPort
 import org.springframework.stereotype.Service
 
 @Service
 class CommentCreateService(
     private val commentCommandPort: CommentCommandPort,
-    private val commentQueryPort: CommentQueryPort,
-    private val articleGetPort: ArticleQueryPersistencePort,
+    private val articleQueryPort: ArticleQueryPersistencePort,
 ) {
-    fun createParent(dto: ParentCommentCreateRequest): CommentCreateResponse {
-        val article = articleGetPort.findById(dto.articleId.value)
-        val ref = commentQueryPort.findMaxRefByArticle(article).maxRef + 1
+    fun createParent(request: ParentCommentCreateRequest): CommentCreateResponse {
+        val article = articleQueryPort.findById(request.articleId.value)
 
-        return Comment(
-            userId = dto.userId,
+        return Comment.parent(
+            userId = request.userId,
             article = article,
-            content = dto.content,
-            depth = 0,
-            ref = ref
+            content = request.content
         )
         .let {
             commentCommandPort.save(it)
@@ -35,17 +30,14 @@ class CommentCreateService(
         }
     }
 
-    fun createChild(dto: ChildCommentCreateRequest): CommentCreateResponse {
-        val article = articleGetPort.findById(dto.articleId.value)
-        val parentInfo = commentQueryPort.findById(dto.parentCommentId)
-        val depth = parentInfo.depth + 1
+    fun createChild(request: ChildCommentCreateRequest): CommentCreateResponse {
+        val article = articleQueryPort.findById(request.articleId.value)
 
-        return Comment(
-            userId = dto.userId,
+        return Comment.child(
+            userId = request.userId,
             article = article,
-            content = dto.content,
-            depth = depth,
-            ref = parentInfo.ref
+            content = request.content,
+            parentCommentId = request.parentCommentId
         )
         .let {
             commentCommandPort.save(it)

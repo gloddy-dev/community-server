@@ -18,11 +18,6 @@ import org.springframework.stereotype.Component
 class CommentQueryAdapter(
     private val commentJpaRepository: CommentJpaRepository
 ): CommentQueryPort {
-    override fun findMaxRefByArticle(article: Article): CommentFindMaxRefDto {
-        commentJpaRepository.findOneByArticleOrderByRefDesc(article.toEntity())
-            ?.let { return it.toResponseDto() }
-            ?: return CommentFindMaxRefDto(0)
-    }
 
     override fun findById(id: CommentId): Comment {
         return commentJpaRepository.findByIdOrNull(id.value)

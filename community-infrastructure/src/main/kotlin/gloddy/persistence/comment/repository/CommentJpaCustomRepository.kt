@@ -6,5 +6,4 @@ import gloddy.persistence.comment.model.CommentFindMaxRefDto
 
 interface CommentJpaCustomRepository {
     fun findAllByArticle(article: ArticleJpaEntity, currentUserId: Long): List<CommentFindByArticleDto>
-    fun findOneByArticleOrderByRefDesc(article: ArticleJpaEntity): CommentFindMaxRefDto?
 }

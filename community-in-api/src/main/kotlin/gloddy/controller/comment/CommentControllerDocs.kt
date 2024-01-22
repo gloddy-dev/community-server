@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 
-@Tag(name = "게시글")
+@Tag(name = "댓글")
 interface CommentControllerDocs {
 
     @Operation(summary = "부모 댓글 생성")

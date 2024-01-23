@@ -49,4 +49,14 @@ data class Article(
         this.copy(
             likeCount = this.likeCount - 1
         )
+
+    fun comment(): Article =
+        this.copy(
+            commentCount = this.commentCount + 1
+        )
+
+    fun unComment(): Article =
+        this.copy(
+            commentCount = this.commentCount - 1
+        )
 }

@@ -14,6 +14,7 @@ fun CommentLikeJpaEntity.toDomain(): CommentLike =
 
 fun CommentLike.toEntity(): CommentLikeJpaEntity =
     CommentLikeJpaEntity(
+        id = this.id!!.value,
         userId = this.userId.value,
         comment = this.comment.toEntity(),
     )

@@ -88,7 +88,7 @@ data class Comment(
             commentCount = commentCount + 1
         )
 
-    fun upPlusChild(): Comment =
+    fun unPlusChild(): Comment =
         this.copy(
             commentCount = commentCount - 1
         )

@@ -2,7 +2,6 @@ package gloddy.article
 
 import gloddy.ArticleFixture
 import gloddy.PersistenceTest
-import gloddy.article.exception.ArticleNotFoundException
 import gloddy.persistence.article.adapter.ArticleCommandPersistenceAdapter
 import gloddy.persistence.util.mapper.toEntity
 import org.junit.jupiter.api.Assertions.*
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import org.springframework.data.repository.findByIdOrNull
 import kotlin.properties.Delegates
 
 @DisplayName("ArticleCommandPersistenceAdapterTest의")

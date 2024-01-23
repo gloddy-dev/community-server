@@ -1,9 +1,8 @@
 package gloddy.persistence.article.adapter
 
 import gloddy.article.Article
-import gloddy.article.port.`in`.dto.read.ArticleDetailResponse
+import gloddy.article.ArticleNotFoundException
 import gloddy.article.port.`in`.dto.read.ArticleDetailUnit
-import gloddy.article.exception.ArticleNotFoundException
 import gloddy.article.port.`in`.ArticleOrder
 import gloddy.article.port.out.ArticleQueryPersistencePort
 import gloddy.core.dto.PageResponse

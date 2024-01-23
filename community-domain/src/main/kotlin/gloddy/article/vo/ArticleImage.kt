@@ -1,6 +1,6 @@
 package gloddy.article.vo
 
-import gloddy.article.exception.ArticleImageSizeOverException
+import gloddy.article.ArticleImageSizeOverException
 
 data class ArticleImage(
     val images: List<String>?

@@ -39,8 +39,8 @@ dependencyManagement {
 
 allOpen {
     annotation("jakarta.persistence.Entity")
-    annotation("jakarta.persistence.Embeddable")
     annotation("jakarta.persistence.MappedSuperclass")
+    annotation("jakarta.persistence.Embeddable")
 }
 
 idea {
@@ -50,4 +50,3 @@ idea {
         generatedSourceDirs.add(kaptMain)
     }
 }
-

@@ -14,3 +14,8 @@ value class ArticleId(
 value class CategoryId(
     val value: Long
 )
+
+@JvmInline
+value class CommentId(
+    val value: Long
+)

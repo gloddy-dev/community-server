@@ -48,7 +48,7 @@ class ArticleQueryService(
             id = request.id,
             userId = request.userId
         )
-        val userPreviewUnit = userQueryPort.getUserPreviewUnit(request.userId)
+        val userPreviewUnit = userQueryPort.getUserPreviewUnit(articleDetailUnit.userId)
         return ArticleDetailResponse(
             article = articleDetailUnit,
             writer = userPreviewUnit

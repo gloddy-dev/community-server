@@ -19,6 +19,7 @@ fun CommentJpaEntity.toDomain(): Comment =
 
 fun Comment.toEntity(): CommentJpaEntity =
     CommentJpaEntity(
+        id = this.id!!.value,
         userId = this.userId.value,
         article = this.article.toEntity(),
         content = this.content,

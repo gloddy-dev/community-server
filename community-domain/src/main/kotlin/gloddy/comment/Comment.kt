@@ -49,7 +49,14 @@ data class Comment(
                 userId = userId,
                 article = article,
                 content = content,
-                parentId = parentCommentId
+                parentId = parentCommentId,
+                events = arrayListOf(
+                    ChildCommentCreateEvent(
+                        userId = userId.value,
+                        articleId = article.id!!.value,
+                        parentCommentId = parentCommentId.value,
+                    )
+                )
             )
     }
 

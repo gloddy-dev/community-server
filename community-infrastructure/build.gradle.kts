@@ -29,13 +29,6 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     testImplementation(testFixtures(project(":community-domain")))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-
-    // querydsl
-    implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
-    kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
-    annotationProcessor("jakarta.annotation:jakarta.annotation-api")
-    annotationProcessor("jakarta.persistence:jakarta.persistence-api")
-    kapt("org.springframework.boot:spring-boot-configuration-processor")
 }
 
 dependencyManagement {

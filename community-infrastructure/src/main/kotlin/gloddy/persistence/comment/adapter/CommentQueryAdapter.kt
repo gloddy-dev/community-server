@@ -2,6 +2,7 @@ package gloddy.persistence.comment.adapter
 
 import gloddy.comment.Comment
 import gloddy.comment.CommentNotFoundException
+import gloddy.comment.dto.readModel.ChildCommentUnit
 import gloddy.comment.dto.readModel.ParentCommentUnit
 import gloddy.comment.port.out.CommentQueryPort
 import gloddy.core.CommentId
@@ -24,6 +25,11 @@ class CommentQueryAdapter(
 
     override fun findParentComments(articleId: Long, userId: Long): List<ParentCommentUnit> {
         return commentJpaRepository.findParentCommentsByArticleId(articleId, userId)
+            .map { it.toResponse(userId) }
+    }
+
+    override fun findChildComments(parentId: Long, userId: Long): List<ChildCommentUnit> {
+        return commentJpaRepository.findChildCommentsByParentId(parentId, userId)
             .map { it.toResponse(userId) }
     }
 }

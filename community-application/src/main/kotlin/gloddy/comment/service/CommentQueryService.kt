@@ -1,6 +1,9 @@
 package gloddy.comment.service
 
+import gloddy.comment.dto.ChildCommentGetRequest
 import gloddy.comment.dto.CommentGetRequest
+import gloddy.comment.dto.readModel.FindChildCommentByParentIdResponse
+import gloddy.comment.dto.readModel.FindChildCommentsByParentIdResponse
 import gloddy.comment.dto.readModel.FindParentCommentByArticleIdResponse
 import gloddy.comment.dto.readModel.FindParentCommentsByArticleIdResponse
 import gloddy.comment.port.out.CommentQueryPort
@@ -29,5 +32,23 @@ class CommentQueryService(
                 writer = userPreviewUnits[it.userId]!!
             )
         }.let { FindParentCommentsByArticleIdResponse(it) }
+    }
+
+    fun getChildComments(request: ChildCommentGetRequest): FindChildCommentsByParentIdResponse {
+
+        val childCommentUnits = commentQueryPort.findChildComments(
+            parentId = request.parentId,
+            userId = request.userId
+        )
+        val userPreviewUnits = userQueryPort.getUserPreviewUnits(
+            childCommentUnits.map { it.userId }.toSet()
+        )
+
+        return childCommentUnits.map {
+            FindChildCommentByParentIdResponse(
+                childComment = it,
+                writer = userPreviewUnits[it.userId]!!
+            )
+        }.let { FindChildCommentsByParentIdResponse(it) }
     }
 }

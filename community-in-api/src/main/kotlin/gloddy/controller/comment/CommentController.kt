@@ -83,7 +83,7 @@ class CommentController(
 
     @PostMapping("/articles/{articleId}/comments/{commentId}/like")
     override fun like(
-        @Parameter(hidden = true) userId: Long,
+        @RequestHeader("USER_ID") userId: Long,
         @PathVariable("articleId") articleId: Long,
         @PathVariable("commentId") commentId: Long,
     ): ResponseEntity<CommunityApiResponse<Nothing>> {

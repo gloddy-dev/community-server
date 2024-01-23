@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CommentLikeUpsertService(
-    private val commentLikeCommandPort: CommentLikeCommandPort,
     private val commentLikeQueryPort: CommentLikeQueryPort,
     private val commentQueryPort: CommentQueryPort,
     private val commentCommandPort: CommentCommandPort,
@@ -21,39 +20,34 @@ class CommentLikeUpsertService(
 
     @Transactional
     fun upsert(dto: CommentLikeUpsertRequest) {
-        commentLikeQueryPort.findByCommentIdAndUserId(
+        commentLikeQueryPort.findByCommentIdAndUserIdOrNull(
             commentId = dto.commentId,
             userId = dto.userId
         )
-        ?. let {
-            deleteLike(it)
-        }
-        ?: run {
-            createLike(
-                commentId = dto.commentId,
-                userId = dto.userId
-            )
-        }
+            ?.run {
+                unLike(dto.commentId, this)
+            }
+            ?: run {
+                like(dto.commentId, dto.userId)
+            }
     }
 
-    fun createLike(commentId: CommentId, userId: UserId) {
+    private fun like(commentId: CommentId, userId: UserId) {
         val comment = commentQueryPort.findById(commentId)
-
-        commentLikeCommandPort.save(
-            CommentLike(
+        commentCommandPort.upsertLike(
+            commentLike = CommentLike(
                 userId = userId,
                 comment = comment
-            )
-        )
-
-        commentCommandPort.save(
-            comment.copy(
-                likeCount = comment.likeCount + 1
-            )
+            ),
+            comment = comment.like()
         )
     }
 
-    fun deleteLike(commentLike: CommentLike) {
-        commentLikeCommandPort.delete(commentLike)
+    private fun unLike(commentId: CommentId, commentLike: CommentLike) {
+        val comment = commentQueryPort.findById(commentId)
+        commentCommandPort.upsertLike(
+            commentLike = commentLike,
+            comment = comment.unLike()
+        )
     }
 }

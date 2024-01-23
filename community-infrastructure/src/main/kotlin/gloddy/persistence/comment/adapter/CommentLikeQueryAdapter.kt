@@ -13,7 +13,7 @@ class CommentLikeQueryAdapter(
     private val commentLikeJpaRepository: CommentLikeJpaRepository
 ): CommentLikeQueryPort {
 
-    override fun findByCommentIdAndUserId(commentId: CommentId, userId: UserId): CommentLike? {
+    override fun findByCommentIdAndUserIdOrNull(commentId: CommentId, userId: UserId): CommentLike? {
         return commentLikeJpaRepository
             .findByCommentIdAndUserId(commentId.value, userId.value)
             ?.toDomain()

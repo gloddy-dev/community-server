@@ -93,6 +93,16 @@ data class Comment(
             commentCount = commentCount - 1
         )
 
+    fun like(): Comment =
+        this.copy(
+            likeCount = likeCount + 1
+        )
+
+    fun unLike(): Comment =
+        this.copy(
+            likeCount = likeCount -1
+        )
+
     private fun isWriter(currentUserId: UserId) {
         if (currentUserId != this.userId) {
             throw CommentNotAuthorizationException()

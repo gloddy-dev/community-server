@@ -21,7 +21,6 @@ class ArticleCommandService(
     private val categoryQueryPersistencePort: CategoryQueryPersistencePort,
     private val articleQueryPersistencePort: ArticleQueryPersistencePort,
     private val articleCommandPersistencePort: ArticleCommandPersistencePort,
-    private val articleLikeCommandPersistencePort: ArticleLikeCommandPersistencePort,
     private val articleLikeQueryPersistencePort: ArticleLikeQueryPersistencePort,
 ) : ArticleCommandUseCase {
 

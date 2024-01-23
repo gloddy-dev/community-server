@@ -1,7 +1,7 @@
 package gloddy.controller.comment
 
 import gloddy.comment.dto.ChildCommentGetRequest
-import gloddy.comment.dto.CommentGetRequest
+import gloddy.comment.dto.ParentCommentGetRequest
 import gloddy.comment.dto.readModel.FindChildCommentsByParentIdResponse
 import gloddy.comment.dto.readModel.FindParentCommentsByArticleIdResponse
 import gloddy.comment.service.CommentQueryService
@@ -25,7 +25,7 @@ class CommentQueryController(
         @PathVariable("articleId") articleId: Long,
     ): ResponseEntity<CommunityApiResponse<FindParentCommentsByArticleIdResponse>> {
         return commentQueryService.getParentComments(
-            CommentGetRequest(
+            ParentCommentGetRequest(
                 userId = UserId(userId),
                 articleId = ArticleId(articleId)
             )

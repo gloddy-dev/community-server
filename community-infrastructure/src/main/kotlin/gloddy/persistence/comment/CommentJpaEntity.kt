@@ -38,4 +38,8 @@ class CommentJpaEntity(
     createdAt: LocalDateTime? = null
 ): BaseTimeEntity(
     createdAt = createdAt
-)
+) {
+    fun changeDeletedToTrue() {
+        this.deleted = true
+    }
+}

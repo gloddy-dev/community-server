@@ -1,7 +1,7 @@
 package gloddy.comment.service
 
 import gloddy.comment.dto.ChildCommentGetRequest
-import gloddy.comment.dto.CommentGetRequest
+import gloddy.comment.dto.ParentCommentGetRequest
 import gloddy.comment.dto.readModel.FindChildCommentByParentIdResponse
 import gloddy.comment.dto.readModel.FindChildCommentsByParentIdResponse
 import gloddy.comment.dto.readModel.FindParentCommentByArticleIdResponse
@@ -16,7 +16,7 @@ class CommentQueryService(
     private val userQueryPort: UserQueryPort
 ) {
 
-    fun getParentComments(request: CommentGetRequest): FindParentCommentsByArticleIdResponse {
+    fun getParentComments(request: ParentCommentGetRequest): FindParentCommentsByArticleIdResponse {
 
         val parentCommentUnits = commentQueryPort.findParentComments(
             articleId = request.articleId.value,

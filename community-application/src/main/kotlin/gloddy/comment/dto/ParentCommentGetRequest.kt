@@ -3,7 +3,7 @@ package gloddy.comment.dto
 import gloddy.core.ArticleId
 import gloddy.core.UserId
 
-data class CommentGetRequest(
+data class ParentCommentGetRequest(
     val userId: UserId,
     val articleId: ArticleId
 )

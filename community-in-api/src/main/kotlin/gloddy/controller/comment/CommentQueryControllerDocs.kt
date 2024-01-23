@@ -1,5 +1,6 @@
 package gloddy.controller.comment
 
+import gloddy.comment.dto.readModel.FindChildCommentsByParentIdResponse
 import gloddy.comment.dto.readModel.FindParentCommentsByArticleIdResponse
 import gloddy.response.CommunityApiResponse
 import io.swagger.v3.oas.annotations.Operation
@@ -18,4 +19,12 @@ interface CommentQueryControllerDocs {
         @Parameter(hidden = true) userId: Long,
         @PathVariable("articleId") articleId: Long
     ): ResponseEntity<CommunityApiResponse<FindParentCommentsByArticleIdResponse>>
+
+    @Operation(summary = "자식 댓글 조회")
+    @ApiResponse(responseCode = "200", description = "댓글 조회 성공")
+    fun getChildComments(
+        @Parameter(hidden = true) userId: Long,
+        @PathVariable("articleId") articleId: Long,
+        @PathVariable("parentId") parentId: Long
+    ): ResponseEntity<CommunityApiResponse<FindChildCommentsByParentIdResponse>>
 }

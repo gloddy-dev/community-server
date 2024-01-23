@@ -1,6 +1,8 @@
 package gloddy.controller.comment
 
+import gloddy.comment.dto.ChildCommentGetRequest
 import gloddy.comment.dto.CommentGetRequest
+import gloddy.comment.dto.readModel.FindChildCommentsByParentIdResponse
 import gloddy.comment.dto.readModel.FindParentCommentsByArticleIdResponse
 import gloddy.comment.service.CommentQueryService
 import gloddy.core.ArticleId
@@ -26,6 +28,20 @@ class CommentQueryController(
             CommentGetRequest(
                 userId = UserId(userId),
                 articleId = ArticleId(articleId)
+            )
+        ).let { ApiResponseEntityWrapper(it).ok() }
+    }
+
+    @GetMapping("/articles/{articleId}/comments/{parentId}/child")
+    override fun getChildComments(
+        @RequestHeader("USER_ID") userId: Long,
+        @PathVariable("articleId") articleId: Long,
+        @PathVariable("parentId") parentId: Long,
+    ): ResponseEntity<CommunityApiResponse<FindChildCommentsByParentIdResponse>> {
+        return commentQueryService.getChildComments(
+            ChildCommentGetRequest(
+                parentId = parentId,
+                userId = userId
             )
         ).let { ApiResponseEntityWrapper(it).ok() }
     }

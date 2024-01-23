@@ -5,6 +5,8 @@ import gloddy.article.ArticleLike
 import gloddy.article.port.`in`.dto.command.ArticleCreateRequest
 import gloddy.article.port.`in`.dto.read.ArticleCreateResponse
 import gloddy.article.port.`in`.ArticleCommandUseCase
+import gloddy.article.port.`in`.dto.command.ArticleUpsertCommentRequest
+import gloddy.article.port.`in`.dto.command.CommentStatus
 import gloddy.article.port.out.ArticleCommandPersistencePort
 import gloddy.article.port.out.ArticleLikeCommandPersistencePort
 import gloddy.article.port.out.ArticleLikeQueryPersistencePort
@@ -59,5 +61,13 @@ class ArticleCommandService(
                 ),
                 article = article.like()
             )
+    }
+
+    override fun upsertComment(request: ArticleUpsertCommentRequest) {
+        val article = articleQueryPersistencePort.findById(request.articleId)
+        when(request.status) {
+            CommentStatus.CREATE -> articleCommandPersistencePort.save(article.comment())
+            CommentStatus.DELETE -> articleCommandPersistencePort.save(article.unComment())
+        }
     }
 }

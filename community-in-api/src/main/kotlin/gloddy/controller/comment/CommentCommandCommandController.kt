@@ -9,7 +9,6 @@ import gloddy.core.ArticleId
 import gloddy.core.CommentId
 import gloddy.core.UserId
 import gloddy.response.*
-import io.swagger.v3.oas.annotations.Parameter
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -21,12 +20,11 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/v1/communities")
-class CommentController(
+class CommentCommandCommandController(
     private val commentCreateService: CommentCreateService,
     private val commentDeleteService: CommentDeleteService,
     private val commentLikeUpsertService: CommentLikeUpsertService,
-    private val commentLikeDeleteService: CommentDeleteService
-): CommentControllerDocs {
+): CommentCommandControllerDocs {
 
     @PostMapping("/articles/{articleId}/comments")
     override fun createParent(

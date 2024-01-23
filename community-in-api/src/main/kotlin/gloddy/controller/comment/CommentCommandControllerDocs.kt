@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 
 @Tag(name = "댓글")
-interface CommentControllerDocs {
+interface CommentCommandControllerDocs {
 
     @Operation(summary = "부모 댓글 생성")
     @ApiResponse(responseCode = "201", description = "부모 댓글 생성 성공")

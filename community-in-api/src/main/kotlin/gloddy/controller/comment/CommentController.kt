@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/api/v1/communities/articles")
+@RequestMapping("/api/v1/communities")
 class CommentController(
     private val commentCreateService: CommentCreateService,
     private val commentDeleteService: CommentDeleteService,
@@ -28,7 +28,7 @@ class CommentController(
     private val commentLikeDeleteService: CommentDeleteService
 ): CommentControllerDocs {
 
-    @PostMapping("/{articleId}/comments")
+    @PostMapping("/articles/{articleId}/comments")
     override fun createParent(
         @RequestHeader("USER_ID") userId: Long,
         @PathVariable("articleId") articleId: Long,
@@ -45,7 +45,7 @@ class CommentController(
         return ApiResponseEntityWrapper(data).created()
     }
 
-    @PostMapping("/{articleId}/comments/{commentId}/child")
+    @PostMapping("/articles/{articleId}/comments/{commentId}/child")
     override fun createChild(
         @RequestHeader("USER_ID") userId: Long,
         @PathVariable("articleId") articleId: Long,
@@ -64,7 +64,7 @@ class CommentController(
         return ApiResponseEntityWrapper(data).created()
     }
 
-    @DeleteMapping("/{articleId}/comments/{commentId}")
+    @DeleteMapping("/articles/{articleId}/comments/{commentId}")
     override fun delete(
         @RequestHeader("USER_ID") userId: Long,
         @PathVariable("articleId") articleId: Long,
@@ -81,7 +81,7 @@ class CommentController(
         return ApiResponseEntityWrapper<Nothing>().noContent()
     }
 
-    @PostMapping("/{articleId}/comments/{commentId}/like")
+    @PostMapping("/articles/{articleId}/comments/{commentId}/like")
     override fun like(
         @Parameter(hidden = true) userId: Long,
         @PathVariable("articleId") articleId: Long,

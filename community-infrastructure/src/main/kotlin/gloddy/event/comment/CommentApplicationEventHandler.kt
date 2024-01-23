@@ -2,6 +2,7 @@ package gloddy.event.comment
 
 import gloddy.article.port.`in`.dto.command.CommentStatus
 import gloddy.comment.dto.CommentChildUpsertRequest
+import gloddy.comment.event.ChildCommentCreateEvent
 import gloddy.comment.event.ChildCommentDeleteEvent
 import gloddy.comment.service.CommentUpdateService
 import gloddy.core.CommentId
@@ -17,8 +18,18 @@ class CommentApplicationEventHandler(
     fun handleChildCommentDeleteEvent(event: ChildCommentDeleteEvent) {
         commentUpdateService.upsertChildCount(
             CommentChildUpsertRequest(
-                commentId = CommentId(event.commentId),
+                commentId = CommentId(event.parentCommentId),
                 status = CommentStatus.DELETE
+            )
+        )
+    }
+
+    @EventListener
+    fun handleChildCommentDeleteEvent(event: ChildCommentCreateEvent) {
+        commentUpdateService.upsertChildCount(
+            CommentChildUpsertRequest(
+                commentId = CommentId(event.parentCommentId),
+                status = CommentStatus.CREATE
             )
         )
     }

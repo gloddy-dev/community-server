@@ -16,7 +16,7 @@ class CommentUpdateService(
         val comment = commentQueryPort.findById(request.commentId)
         when(request.status) {
             CommentStatus.CREATE -> commentCommandPort.save(comment.plusChild())
-            CommentStatus.DELETE -> commentCommandPort.save(comment.upPlusChild())
+            CommentStatus.DELETE -> commentCommandPort.save(comment.unPlusChild())
         }
     }
 }

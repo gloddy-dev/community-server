@@ -17,5 +17,8 @@ enum class ErrorCode(
     ARTICLE_NO_AUTHORIZATION(401, "ARTICLE_003", "해당 게시글에 권한이 없습니다."),
 
     // Category
-    CATEGORY_NOT_FOUND(404, "CATEGORY_001", "해당 카테고리를 찾을 수 없습니다.")
+    CATEGORY_NOT_FOUND(404, "CATEGORY_001", "해당 카테고리를 찾을 수 없습니다."),
+
+    // User
+    USER_NOT_FOUND(404, "COMMUNITY_USER_001", "해당 유저를 찾을 수 없습니다.")
 }

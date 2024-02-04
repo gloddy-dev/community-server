@@ -6,3 +6,4 @@ spring:
     import:
       - application-persistence.yml
       - application-internal.yml
+      - application-message.yml

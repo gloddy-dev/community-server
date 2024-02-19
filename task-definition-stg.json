@@ -1,5 +1,5 @@
 {
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:750773866215:task-definition/community-stg:18",
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:750773866215:task-definition/community-stg:22",
   "containerDefinitions": [
     {
       "name": "springboot",
@@ -48,6 +48,11 @@
           "hostPort": 8126,
           "protocol": "tcp",
           "appProtocol": "http"
+        },
+        {
+          "containerPort": 8125,
+          "hostPort": 8125,
+          "protocol": "udp"
         }
       ],
       "essential": false,
@@ -67,27 +72,11 @@
       ],
       "environmentFiles": [
         {
-          "value": "arn:aws:s3:::gloddy-env/env/ec2-datadog.env",
+          "value": "arn:aws:s3:::gloddy-env/env/datadog.env",
           "type": "s3"
         }
       ],
-      "mountPoints": [
-        {
-          "sourceVolume": "docker_sock",
-          "containerPath": "/var/run/docker.sock",
-          "readOnly": true
-        },
-        {
-          "sourceVolume": "cgroup",
-          "containerPath": "/host/sys/fs/cgroup",
-          "readOnly": true
-        },
-        {
-          "sourceVolume": "proc",
-          "containerPath": "/host/proc",
-          "readOnly": true
-        }
-      ],
+      "mountPoints": [],
       "volumesFrom": [],
       "logConfiguration": {
         "logDriver": "awslogs",
@@ -102,30 +91,10 @@
     }
   ],
   "family": "community-stg",
-  "taskRoleArn": "arn:aws:iam::750773866215:role/ec2-role-for-ec2",
   "executionRoleArn": "arn:aws:iam::750773866215:role/ecsTaskExecutionRole",
   "networkMode": "awsvpc",
-  "revision": 18,
-  "volumes": [
-    {
-      "name": "docker_sock",
-      "host": {
-        "sourcePath": "/var/run/docker.sock"
-      }
-    },
-    {
-      "name": "proc",
-      "host": {
-        "sourcePath": "/proc/"
-      }
-    },
-    {
-      "name": "cgroup",
-      "host": {
-        "sourcePath": "/sys/fs/cgroup/"
-      }
-    }
-  ],
+  "revision": 22,
+  "volumes": [],
   "status": "ACTIVE",
   "requiresAttributes": [
     {
@@ -144,9 +113,6 @@
       "name": "ecs.capability.env-files.s3"
     },
     {
-      "name": "com.amazonaws.ecs.capability.task-iam-role"
-    },
-    {
       "name": "ecs.capability.execution-role-ecr-pull"
     },
     {
@@ -161,18 +127,19 @@
   ],
   "placementConstraints": [],
   "compatibilities": [
-    "EC2"
+    "EC2",
+    "FARGATE"
   ],
   "requiresCompatibilities": [
-    "EC2"
+    "FARGATE"
   ],
   "cpu": "512",
-  "memory": "819",
+  "memory": "1024",
   "runtimePlatform": {
     "cpuArchitecture": "X86_64",
     "operatingSystemFamily": "LINUX"
   },
-  "registeredAt": "2024-01-15T11:27:46.602Z",
+  "registeredAt": "2024-02-19T18:16:29.091Z",
   "registeredBy": "arn:aws:iam::750773866215:root",
   "tags": []
 }

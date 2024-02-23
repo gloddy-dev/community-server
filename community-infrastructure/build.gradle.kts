@@ -18,6 +18,7 @@ dependencies {
     implementation(project(":community-application"))
     implementation(project(":community-domain"))
 
+    //jpa, db
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
     kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
@@ -26,7 +27,13 @@ dependencies {
     kapt("org.springframework.boot:spring-boot-configuration-processor")
     runtimeOnly("com.h2database:h2")
     runtimeOnly("com.mysql:mysql-connector-j")
+    //openfeing
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    //sqs
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.5")
+    implementation(platform("io.awspring.cloud:spring-cloud-aws-dependencies:3.0.3"))
+    implementation("io.awspring.cloud:spring-cloud-aws-starter-sqs")
+    //test
     testImplementation(testFixtures(project(":community-domain")))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
